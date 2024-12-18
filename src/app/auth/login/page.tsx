@@ -1,14 +1,14 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Center, Text, VStack } from "@chakra-ui/react";
-import { link } from "fs";
+import { Button } from "@/_components/ui/Button";
+import { Center, Text, VStack } from "@chakra-ui/react";
 
 const Page = () => {
   return (
     <Center mt={20}>
       <VStack>
         <Text textStyle="xl" fontWeight={500}>
-          Super title from chakraUI
+          Login Page
         </Text>
         <Button>Click me</Button>
         <Text
