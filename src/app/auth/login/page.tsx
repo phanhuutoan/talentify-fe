@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Box, Container, Heading, Text, Button,Input, VStack, SimpleGrid, Image, Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@chakra-ui/react'
+import { Button,Input, Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@chakra-ui/react'
 // import { Field } from "@/_components/ui/field"
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 

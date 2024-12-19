@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Container, Heading, Text, Button, VStack, SimpleGrid, Image } from '@chakra-ui/react'
-import { Link } from '@chakra-ui/react'
+// import { Link } from '@chakra-ui/react'
 
 export default function Home() {
   return (
