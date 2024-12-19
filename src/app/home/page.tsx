@@ -6,7 +6,7 @@ import Testimonials from './components/Testimonials'
 import Footer from './components/Footer'
 import { Box } from '@chakra-ui/react'
 
-export default function Home() {
+export default function HomePage() {
   return (
     <Box minHeight="100vh" display="flex" flexDirection="column">
       <Header />
@@ -16,7 +16,7 @@ export default function Home() {
         <Features />
         <Testimonials />
       </Box>
-      <Footer />
+      <Footer />ss
     </Box>
   )
 }

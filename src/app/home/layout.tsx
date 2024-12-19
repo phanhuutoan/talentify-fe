@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import './globals.css'
 import { Provider } from '@/_components/lib/ui/provider'
 
-export default function RootLayout({
+export default function ComponentLayout({
   children,
 }: {
   children: React.ReactNode
