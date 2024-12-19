@@ -1,5 +1,8 @@
+'use client'
+
 import { useState } from 'react'
-import { Box, Container, Heading, Text, Label, Button,Input, VStack, SimpleGrid, Image, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@chakra-ui/react'
+import { Box, Container, Heading, Text, Button,Input, VStack, SimpleGrid, Image, Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@chakra-ui/react'
+// import { Field } from "@/_components/ui/field"
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 export default function LoginPage() {
@@ -13,31 +16,29 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <Card className="w-full max-w-md">
+      <Card.Root className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">Đăng nhập</CardTitle>
           <CardDescription className="text-center">Nhập thông tin đăng nhập của bạn</CardDescription>
         </CardHeader>
-        <CardContent>
+        <Card.Body>
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="example@example.com" required />
+                <Input id="email" type="email" placeholder="Email (ex: example@example.com)" required />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Mật khẩu</Label>
                 <div className="relative">
                   <Input 
                     id="password" 
                     type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••" 
+                    placeholder="Password" 
                     required 
                   />
                   <Button
                     type="button"
                     variant="ghost"
-                    size="icon"
+                    size='sm'
                     className="absolute right-2 top-1/2 transform -translate-y-1/2"
                     onClick={() => setShowPassword(!showPassword)}
                   >
@@ -48,11 +49,11 @@ export default function LoginPage() {
             </div>
             <Button type="submit" className="w-full mt-6">Đăng nhập</Button>
           </form>
-        </CardContent>
+        </Card.Body>
         <CardFooter className="flex justify-center">
           <a href="#" className="text-sm text-blue-600 hover:underline">Quên mật khẩu?</a>
         </CardFooter>
-      </Card>
+      </Card.Root>
     </div>
   )
 }
