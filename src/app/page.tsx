@@ -11,6 +11,7 @@ import {
   VStack,
   HStack,
   Card,
+  Container,
 } from "@chakra-ui/react";
 import { style } from "../_styles/style";
 import { IoBriefcaseOutline } from "react-icons/io5";
@@ -33,6 +34,7 @@ export default function HomePage() {
         minHeight="100vh"
       >
         {/* Navbar */}
+        <Container key={"xl"}>
         <Flex
           as="nav"
           justify="space-between"
@@ -65,6 +67,8 @@ export default function HomePage() {
             Login
           </Button>
         </Flex>
+        </Container>
+        
 
         {/* Hero Section */}
         <Box
@@ -99,7 +103,7 @@ export default function HomePage() {
             <Text maxW="600px" mb={6} fontSize={14}>
               REVOLUTIONIZING THE WAY TALENT MEETS OPPORTUNITY
             </Text>
-            <Heading fontSize="6xl" fontFamily={style.fonts.heading} mb={8}>
+            <Heading fontSize="6xl" fontFamily={style.fonts.heading} mb={8} letterSpacing={2}>
               Talentify is here
               <Text
                 as="span"
@@ -140,7 +144,7 @@ export default function HomePage() {
         </Box>
 
         {/* Stats Section */}
-        <HStack justify="center" spaceX={20} pb={24}>
+        <HStack justify="center" spaceX={80} pb={24} pt={18}>
           <Box rotate="4deg">
             <Flex
               gap={4}
@@ -188,13 +192,18 @@ export default function HomePage() {
         </HStack>
 
         {/* Image Grid Section */}
+        <Box>
+          <Heading fontSize="3xl" fontFamily={style.fonts.heading} py={12} textAlign="center">
+                Find Talent In Seconds
+          </Heading>
+        </Box>
         <Flex wrap="wrap" justify="center" align="center" gap={6} px={10}>
           {images.map((src, idx) => {
-            let boxSize = "150px"; // Default size for all images
+            let boxSize = "300px"; // Default size for all images
             if (idx === Math.floor(images.length / 2)) {
-              boxSize = "300px"// Center image
+              boxSize = "400px"// Center image
             } else if (idx === 0 || idx === images.length - 1) {
-              boxSize = "100px"; // First and last images
+              boxSize = "200px"; // First and last images
             }
             return (
               <Image
