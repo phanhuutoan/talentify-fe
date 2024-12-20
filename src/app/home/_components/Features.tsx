@@ -55,7 +55,7 @@ export default function Features() {
         >
           Our Features
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 3 }} padding={8}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} padding="md">
           {features.map((feature, index) => (
             <VStack 
               key={index} 
@@ -65,6 +65,7 @@ export default function Features() {
               borderRadius="md" 
               boxShadow="md"
               className="animate-on-scroll"
+              padding={8}
             >
               <Icon as={feature.icon} w={10} h={10} color="purple.500" mb={2} />
               <Heading as="h3" size="md" mb={2}>

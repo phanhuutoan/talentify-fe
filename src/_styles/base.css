@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Poetsen+One&display=swap');
+
+
+html{
+    font-family: "Alata", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.alata-regular {
+    font-family: "Alata", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
