@@ -4,24 +4,38 @@ import {
   defaultConfig,
   mergeConfigs,
 } from "@chakra-ui/react";
-import { buttonRecipe } from "./_button";
+import { buttonRecipe } from "./recipes/_button";
+import { inputRecipe } from "./recipes/_input";
 
-const config1 = defineConfig({
+const customConfig = defineConfig({
   theme: {
     tokens: {
       colors: {
+        brand: {},
+      },
+    },
+    semanticTokens: {
+      colors: {
         brand: {
-          "100": { value: "#f7fafc" },
-          "200": { value: "#FFFF3C" },
+          focusRing: { value: "{colors.blue.400}" },
         },
       },
     },
     recipes: {
       button: buttonRecipe,
+      input: inputRecipe,
     },
   },
+  globalCss: {
+    a: {
+      "&:hover": {
+        borderBottom: "1px solid #333",
+      },
+    },
+  },
+  cssVarsPrefix: "tlf", // Talentify prefix
 });
 
-const config = mergeConfigs(defaultConfig, config1);
+const config = mergeConfigs(defaultConfig, customConfig);
 const system = createSystem(config);
 export default system;

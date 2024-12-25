@@ -1,4 +1,4 @@
-import { buttonRecipe } from "@/_theme/_button";
+import { buttonRecipe } from "@/_theme/recipes/_button";
 import { useRecipe, type RecipeVariantProps } from "@chakra-ui/react";
 import { Button as DefaultButton } from "@chakra-ui/react";
 import React from "react";

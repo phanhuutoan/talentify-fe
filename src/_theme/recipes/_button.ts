@@ -16,8 +16,4 @@ export const buttonRecipe = defineRecipe({
       lg: { padding: "8", fontSize: "24px" },
     },
   },
-  defaultVariants: {
-    size: "sm",
-    visual: "primary",
-  },
 });
