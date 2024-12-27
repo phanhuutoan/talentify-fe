@@ -81,15 +81,19 @@ const LoginForm = () => {
             <Text as="h1" textStyle="3xl" fontWeight={700} mb={2}>
               Login
             </Text>
-            <Text as="h4" textStyle="md" mb={8} color="gray.400">
-              Enter your email below to login to your account
-            </Text>
+            {errorMsg ? (
+              <></>
+            ) : (
+              <Text as="h4" textStyle="md" mb={8} color="gray.400">
+                Enter your email below to login to your account
+              </Text>
+            )}
             {errorMsg && (
               <Alert
                 status="error"
                 title="Login errors!"
                 mb={4}
-                closable
+                // closable
                 onClose={() => setErrorMsg("")}
               >
                 {errorMsg}
