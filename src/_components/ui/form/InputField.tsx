@@ -24,7 +24,6 @@ export const InputField = (props: InputFieldProps) => {
 
   const { control, formState } = useFormContext();
   const labelComponent = labelBuilder ? labelBuilder() : label;
-  console.log("errors", formState.errors[name]?.message);
   return (
     <Controller
       name={name}

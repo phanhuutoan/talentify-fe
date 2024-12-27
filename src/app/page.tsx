@@ -1,8 +1,7 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, Center, Text, VStack } from "@chakra-ui/react";
-import { link } from "fs";
 
+// Fake protection page
 const Page = () => {
   return (
     <Center mt={20}>
