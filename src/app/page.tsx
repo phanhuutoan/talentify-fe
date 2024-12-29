@@ -33,49 +33,42 @@ export default function HomePage() {
       >
         {/* Navbar */}
         <Container key={"xl"}>
-        <Flex
-          as="nav"
-          justify="space-between"
-          align="center"
-          px={10}
-          py={5}
-          // boxShadow="md"
-          bg="white"
-        >
-          <Heading
-            fontFamily={style.fonts.heading}
-            color={style.colors.primary}
-            size="md"
+          <Flex
+            as="nav"
+            justify="space-between"
+            align="center"
+            px={10}
+            py={5}
+            // boxShadow="md"
+            bg="white"
           >
-            Talentify
-          </Heading>
-          <HStack spaceX={8}>
-            <Link href="#">Home</Link>
-            <Link href="#job-board">Job Board</Link>
-            <Link href="#tool">Tool</Link>
-            <Link href="#community">Talent Community</Link>
-            <Link href="#plan">Plan</Link>
-          </HStack>
-          <Button
-            variant="outline"
-            colorScheme="orange"
-            rounded="full"
-            _hover={{ bg: style.colors.primary, color: style.colors.white }}
-          >
-            Login
-          </Button>
-        </Flex>
+            <Heading
+              fontFamily={style.fonts.heading}
+              color={style.colors.primary}
+              size="md"
+            >
+              Talentify
+            </Heading>
+            <HStack spaceX={8}>
+              <Link href="#">Home</Link>
+              <Link href="#job-board">Job Board</Link>
+              <Link href="#tool">Tool</Link>
+              <Link href="#community">Talent Community</Link>
+              <Link href="#plan">Plan</Link>
+            </HStack>
+            <Button
+              variant="outline"
+              colorScheme="orange"
+              rounded="full"
+              _hover={{ bg: style.colors.primary, color: style.colors.white }}
+            >
+              Login
+            </Button>
+          </Flex>
         </Container>
-        
 
         {/* Hero Section */}
-        <Box
-          position="relative"
-          w="full"
-          py={12}
-          bg=""
-          overflow="hidden"
-        >
+        <Box position="relative" w="full" py={12} bg="" overflow="hidden">
           {/* Effect */}
           <Box
             position="absolute"
@@ -98,17 +91,22 @@ export default function HomePage() {
             zIndex={1}
             gap={6}
           >
-            <Text maxW="600px" mb={6} fontSize={14}>
+            <Text maxW="600px" my={6} fontSize={14}>
               REVOLUTIONIZING THE WAY TALENT MEETS OPPORTUNITY
             </Text>
-            <Heading fontSize="6xl" fontFamily={style.fonts.heading} mb={8} letterSpacing={2}>
+            <Heading
+              fontSize="6xl"
+              fontFamily={style.fonts.heading}
+              my={12}
+              letterSpacing={2}
+            >
               Talentify is here
               <Text
                 as="span"
                 fontSize="7xl"
                 display="block"
                 color={style.colors.primary}
-                py={8}
+                py={16}
                 fontFamily={style.fonts["poetsen-one-regular"]}
               >
                 redefine
@@ -191,15 +189,20 @@ export default function HomePage() {
 
         {/* Image Grid Section */}
         <Box>
-          <Heading fontSize="3xl" fontFamily={style.fonts.heading} py={12} textAlign="center">
-                Find Talent In Seconds
+          <Heading
+            fontSize="3xl"
+            fontFamily={style.fonts.heading}
+            py={12}
+            textAlign="center"
+          >
+            Find Talent In Seconds
           </Heading>
         </Box>
         <Flex wrap="wrap" justify="center" align="center" gap={6} px={10}>
           {images.map((src, idx) => {
             let boxSize = "300px"; // Default size for all images
             if (idx === Math.floor(images.length / 2)) {
-              boxSize = "400px"// Center image
+              boxSize = "400px"; // Center image
             } else if (idx === 0 || idx === images.length - 1) {
               boxSize = "200px"; // First and last images
             }

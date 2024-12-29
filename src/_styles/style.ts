@@ -1,4 +1,4 @@
-import '../_styles/base.css';
+import "../_styles/base.css";
 
 export const style = {
   colors: {
@@ -20,7 +20,7 @@ export const style = {
     heading: "Alata, serif",
     body: "Inter, sans-serif",
     mono: "Source Code Pro, monospace",
-    "poetsen-one-regular": "'Poetsen One', serif"
+    "poetsen-one-regular": "'Poetsen One', serif",
   },
   spacing: {
     xs: "0.25rem",
@@ -48,5 +48,3 @@ export const style = {
     slow: "all 0.5s ease",
   },
 };
-
-  
