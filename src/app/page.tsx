@@ -8,9 +8,7 @@ import {
   Text,
   Image,
   Link,
-  VStack,
   HStack,
-  Card,
   Container,
 } from "@chakra-ui/react";
 import { style } from "../_styles/style";

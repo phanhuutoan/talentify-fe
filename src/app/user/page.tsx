@@ -1,10 +1,10 @@
 import { Center } from "@chakra-ui/react";
-import LoginForm from "./_components/loginForm";
+import { MainProfile } from "./_components/MainProfile";
 
 const Page = async () => {
   return (
     <Center>
-      <LoginForm />
+      <MainProfile />
     </Center>
   );
 };

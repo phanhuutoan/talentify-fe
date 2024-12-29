@@ -1,0 +1,56 @@
+import { NextRequest, NextResponse } from "next/server";
+
+const publicPages = ["/auth/", "/_next/", "/favicon.ico"];
+
+export function middleware(req: NextRequest) {
+  console.log("WARE");
+  const url = req.nextUrl;
+  const currentPath = url.pathname;
+  const authData = req.cookies.get("auth"); // For cookies
+  const isPublicPage = publicPages.some((page) => currentPath.startsWith(page));
+
+  if (isPublicPage && !authData) {
+    return NextResponse.next();
+  }
+
+  if (!authData || !authData.value) {
+    console.log("authData", authData);
+    url.pathname = "/auth/login";
+    req.cookies.delete("auth");
+    return NextResponse.redirect(url);
+  }
+
+  const authInfo = JSON.parse(authData.value) as {
+    token: string;
+    expiredAt: string;
+  };
+  const expiredAt = new Date(authInfo.expiredAt);
+  const now = new Date();
+  const isAuth = now < expiredAt && authInfo.token;
+
+  if (!isAuth) {
+    url.pathname = "/auth/login";
+    req.cookies.delete("auth");
+    return NextResponse.redirect(url);
+  }
+
+  if (isAuth && isPublicPage) {
+    url.pathname = "/user";
+    return NextResponse.redirect(url);
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+  ],
+};
