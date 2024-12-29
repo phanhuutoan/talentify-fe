@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const publicPages = ["/auth/", "/_next/", "/favicon.ico"];
+const specialPages = ["/landing"];
 
 export function middleware(req: NextRequest) {
-  console.log("WARE");
   const url = req.nextUrl;
   const currentPath = url.pathname;
   const authData = req.cookies.get("auth"); // For cookies
   const isPublicPage = publicPages.some((page) => currentPath.startsWith(page));
+  const isExactMatch = specialPages.some((page) => currentPath === page);
 
-  if (isPublicPage && !authData) {
+  if ((isPublicPage || isExactMatch) && !authData) {
     return NextResponse.next();
   }
 
   if (!authData || !authData.value) {
-    console.log("authData", authData);
     url.pathname = "/auth/login";
     req.cookies.delete("auth");
     return NextResponse.redirect(url);
