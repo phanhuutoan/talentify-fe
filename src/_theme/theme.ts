@@ -13,42 +13,33 @@ const customConfig = defineConfig({
       colors: {
         brand: {
           100: {
-            value: "{colors.gray.100}",
+            value: "#FF5722",
           },
           200: {
-            value: "{colors.gray.200}",
+            value: "#FF5722",
           },
           300: {
-            value: "{colors.gray.300}",
+            value: "#F56B13",
           },
           400: {
-            value: "{colors.gray.400}",
+            value: "#F6872B",
           },
-          500: {
-            value: "{colors.gray.500}",
-          },
-          600: {
-            value: "{colors.gray.600}",
-          },
-          700: {
-            value: "{colors.gray.700}",
-          },
-          800: {
-            value: "{colors.gray.800}",
-          },
-          900: {
-            value: "{colors.gray.900}",
-          },
+        },
+        dark: {
+          900: { value: "#303841" },
+        },
+        gray: {
+          200: { value: "#F1F5F9" },
         },
       },
     },
     semanticTokens: {
       colors: {
         brand: {
-          solid: { value: "{colors.brand.900}" },
-          contrast: { value: "{colors.brand.100}" },
-          muted: { value: "{colors.brand.400}" },
-          focusRing: { value: "{colors.brand.900}" },
+          solid: { value: "{colors.brand.100}" },
+          contrast: { value: "{colors.gray.100}" },
+          muted: { value: "{colors.brand.200}" },
+          focusRing: { value: "{colors.brand.400}" },
         },
       },
     },

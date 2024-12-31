@@ -20,3 +20,7 @@ export const getMessageFromError = (error: AxiosError<ApiErrorResponse>) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return code ? (errorList as any)[code] : error.message;
 };
+
+export const storageStore = (data: unknown) => {
+  localStorage.setItem("data", JSON.stringify(data));
+};
