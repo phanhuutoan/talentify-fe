@@ -94,7 +94,7 @@ const LoginForm = () => {
             )}
             {errorMsg && (
               <Alert
-                status="error"
+                colorPalette="red"
                 title="Login errors!"
                 mb={4}
                 onClose={() => setErrorMsg("")}

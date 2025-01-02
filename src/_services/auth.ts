@@ -1,4 +1,4 @@
-import { ILoginResponse } from "@/_models/auth";
+import { ILoginResponse, ISignupPayload } from "@/_models/auth";
 import { ApiErrorResponse } from "@/_models/common";
 import { removeCookie } from "@/app/api/jwt/fetcher";
 import axios from "axios";
@@ -24,7 +24,16 @@ const logout = async () => {
   window.location.reload();
 };
 
+export const signup = async (payload: ISignupPayload) => {
+  const response = await axiosInstance.post<ISignupPayload | ApiErrorResponse>(
+    `/auth/sign-up`,
+    payload
+  );
+  return response;
+};
+
 export const authService = {
   login,
   logout,
+  signup,
 };

@@ -38,8 +38,10 @@ const customConfig = defineConfig({
         brand: {
           solid: { value: "{colors.brand.100}" },
           contrast: { value: "{colors.gray.100}" },
+          fg: { value: "{colors.brand.100}" },
           muted: { value: "{colors.brand.200}" },
           focusRing: { value: "{colors.brand.400}" },
+          subtle: { value: "{colors.orange.100}" },
         },
       },
     },
@@ -52,6 +54,11 @@ const customConfig = defineConfig({
     a: {
       "&:hover": {
         borderBottom: "1px solid #333",
+      },
+    },
+    body: {
+      "& *": {
+        color: "gray.900",
       },
     },
   },

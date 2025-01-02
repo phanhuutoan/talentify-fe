@@ -28,7 +28,10 @@ export const SelectRole = (props: Props) => {
         fontWeight="600"
         minW={40}
       >
-        <Icon boxSize={4}>{icon}</Icon> {label}
+        <Icon boxSize={4} fill="white">
+          {icon}
+        </Icon>{" "}
+        {label}
       </Button>
     );
   };

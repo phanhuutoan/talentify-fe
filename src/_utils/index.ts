@@ -21,6 +21,11 @@ export const getMessageFromError = (error: AxiosError<ApiErrorResponse>) => {
   return code ? (errorList as any)[code] : error.message;
 };
 
-export const storageStore = (data: unknown) => {
-  localStorage.setItem("data", JSON.stringify(data));
+export const storageStore = (key: string, data: unknown) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const getStorageData = <T>(key: string) => {
+  const data = localStorage.getItem(key);
+  return data ? (JSON.parse(data) as T) : null;
 };
