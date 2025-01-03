@@ -2,16 +2,34 @@
 import { Button } from "@/_components/lib/ui/button";
 import { authService } from "@/_services/auth";
 import { Box, Text, Flex, Image } from "@chakra-ui/react";
+import { useSWRConfig } from 'swr'
+
+
 
 export const MainProfile = () => {
   const onClick = async () => {
     console.log("CLICK");
     await authService.logout();
   };
+
+  const jsonString = localStorage.getItem("app-cache");
+  if (jsonString) {
+    try {
+      const data = JSON.parse(jsonString);
+      console.log(data);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+    }
+  } else {
+    console.log("No data found for the key 'app-cache'");
+  }
+
+  console.log(localStorage)
+
   return (
     
     <Box
-          bg="rgb(248 250 252 / var(--tw-bg-opacity, .4))" 
+          bg="rgb(255, 255, 255, 0.1)"
           width="100vh" 
           height="50vh" m="20px"
           rounded="lg" 
@@ -27,12 +45,12 @@ export const MainProfile = () => {
       lineHeight="24px"
       px="16px" // Shortened paddingX
       py="8px"  // Shortened paddingY
-      bg="#FF5722"
+      bg="rgb(0, 0, 0, 1)"
     >
       <Text fontSize="2xl" fontWeight="bold" color="#ffffff">
         Bro, Welcome Back!
       </Text>
-      <Button onClick={onClick} rounded="36px">
+      <Button onClick={onClick} rounded="36px" bg="rgb(255, 87, 34, 1)">
         Logout
       </Button>
     </Flex>
