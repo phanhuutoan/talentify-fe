@@ -53,7 +53,7 @@ export const SelectRole = (props: Props) => {
           justify="center"
           ml="6rem"
         >
-          <Text fontSize="3xl" mb={4} fontWeight={400}>
+          <Text fontSize="3xl" mb={4} fontWeight={400} fontFamily={"heading"}>
             Register as ?
           </Text>
           <HStack gap={8}>

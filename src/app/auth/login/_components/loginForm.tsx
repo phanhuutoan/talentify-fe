@@ -1,6 +1,6 @@
 "use client";
 import { InputField } from "@/_components/ui/form/InputField";
-import { ILoginPayload, ILoginResponse } from "@/_models/auth";
+import { ILoginPayload } from "@/_models/auth";
 import {
   Box,
   Center,
@@ -17,7 +17,6 @@ import LoginImage from "@/_images/login-1.jpg";
 import useSWRMutation from "swr/mutation";
 import { authService } from "@/_services/auth";
 import { Button } from "@/_components/lib/ui/button";
-import { setCookie } from "@/app/api/jwt/fetcher";
 import { useRouter } from "next/navigation";
 import { toaster } from "@/_components/lib/ui/toaster";
 import { AxiosError } from "axios";
@@ -49,9 +48,7 @@ const LoginForm = () => {
 
   const loginUser = async (payload: ILoginPayload) => {
     try {
-      const responseData = await trigger({ ...payload });
-      const { token, expiredAt } = responseData.data as ILoginResponse;
-      await setCookie(token, expiredAt);
+      await trigger({ ...payload });
       toaster.success({
         title: "Login successfully! navigating...",
       });
@@ -82,7 +79,13 @@ const LoginForm = () => {
             boxShadow="md"
             w={"27rem"}
           >
-            <Text as="h1" textStyle="3xl" fontWeight={700} mb={2}>
+            <Text
+              as="h1"
+              textStyle="3xl"
+              fontWeight={700}
+              mb={2}
+              fontFamily="heading"
+            >
               Login
             </Text>
             {errorMsg ? (

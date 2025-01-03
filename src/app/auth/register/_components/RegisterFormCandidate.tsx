@@ -43,7 +43,7 @@ type RegisterForm = yup.InferType<typeof yupValidationSchema>;
 
 interface Props {
   onBackClick?: () => void;
-  onSignupSuccess?: () => void;
+  onSignupSuccess?: (email: string, password: string) => void;
 }
 
 export const RegisterFormCandidate = (props: Props) => {
@@ -77,7 +77,7 @@ export const RegisterFormCandidate = (props: Props) => {
       toaster.success({
         title: "Signup successfully! navigating...",
       });
-      props.onSignupSuccess?.();
+      props.onSignupSuccess?.(data.email, data.password);
     } catch (error) {
       window.scrollTo(0, 0);
       setSignupErr(getMessageFromError(error as AxiosError<ApiErrorResponse>));
@@ -130,7 +130,7 @@ export const RegisterFormCandidate = (props: Props) => {
           p={8}
           borderRadius={8}
           boxShadow="md"
-          w="50rem"
+          w="80%"
           flexDir="column"
           onSubmit={form.handleSubmit(onSubmit)}
         >

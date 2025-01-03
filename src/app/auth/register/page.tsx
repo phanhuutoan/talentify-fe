@@ -7,7 +7,7 @@ import { RegisterFormCandidate } from "./_components/RegisterFormCandidate";
 import { RegisterFormRecruiter } from "./_components/RegisterFormRecruiter";
 import { VerifyOTP } from "./_components/VerifyOTP";
 import { SuccessfulScreen } from "./_components/SuccessfulScreen";
-import { getStorageData, storageStore } from "@/_utils";
+import { getStorageData, removeStorageData, setStorageData } from "@/_utils";
 
 enum StepScreen {
   ROLE_SELECTION = "ROLE_SELECTION",
@@ -19,6 +19,8 @@ enum StepScreen {
 interface FinalData {
   roleId: ROLE_ID | null;
   currentStep: StepScreen;
+  email: string | null;
+  password: string | null;
 }
 const KEY_STORE = "registerData";
 const RegisterPage = () => {
@@ -27,12 +29,19 @@ const RegisterPage = () => {
   const [finalData, setFinalData] = useState<FinalData>({
     roleId: null,
     currentStep: StepScreen.ROLE_SELECTION,
+    email: null,
+    password: null,
   });
 
   const onSelectRole = (role: ROLE_ID) => {
     setRole(role);
     setScreen(StepScreen.REGISTER);
-    setFinalData({ roleId: role, currentStep: StepScreen.REGISTER });
+    setFinalData({
+      roleId: role,
+      currentStep: StepScreen.REGISTER,
+      email: null,
+      password: null,
+    });
   };
 
   useEffect(() => {
@@ -46,17 +55,34 @@ const RegisterPage = () => {
 
   useEffect(() => {
     console.log("Temp store", finalData);
-    storageStore(KEY_STORE, finalData);
+    setStorageData(KEY_STORE, finalData);
   }, [finalData]);
 
   const onFormBackClick = () => {
     setScreen(StepScreen.ROLE_SELECTION);
-    setFinalData({ roleId: null, currentStep: StepScreen.ROLE_SELECTION });
+    setFinalData({
+      ...finalData,
+      roleId: null,
+    });
   };
 
-  const onSignupSuccess = () => {
+  const onSignupSuccess = (email: string, password: string) => {
     setScreen(StepScreen.OTP);
-    setFinalData({ ...finalData, currentStep: StepScreen.OTP });
+    setFinalData({
+      ...finalData,
+      currentStep: StepScreen.OTP,
+      email,
+      password: btoa(password),
+    });
+  };
+
+  const onOTPVerifySuccess = () => {
+    setScreen(StepScreen.SUCCESS);
+    setFinalData({ ...finalData, currentStep: StepScreen.SUCCESS });
+  };
+
+  const onFinish = () => {
+    removeStorageData(KEY_STORE);
   };
 
   const getScreen = () => {
@@ -74,9 +100,17 @@ const RegisterPage = () => {
         }
         return <RegisterFormRecruiter />;
       case StepScreen.OTP:
-        return <VerifyOTP />;
+        return (
+          <VerifyOTP email={finalData.email} onSuccess={onOTPVerifySuccess} />
+        );
       case StepScreen.SUCCESS:
-        return <SuccessfulScreen />;
+        return (
+          <SuccessfulScreen
+            onFinish={onFinish}
+            email={finalData.email}
+            password={finalData.password}
+          />
+        );
     }
   };
 

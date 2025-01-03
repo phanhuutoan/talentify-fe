@@ -15,9 +15,17 @@ export const PinInput = React.forwardRef<HTMLInputElement, PinInputProps>(
       <ChakraPinInput.Root ref={rootRef} {...rest}>
         <ChakraPinInput.HiddenInput ref={ref} {...inputProps} />
         <ChakraPinInput.Control>
-          <Group attached={attached}>
+          <Group attached={attached} gap={0}>
             {Array.from({ length: count }).map((_, index) => (
-              <ChakraPinInput.Input type="string" key={index} index={index} />
+              <ChakraPinInput.Input
+                borderRadius={0}
+                type="string"
+                colorPalette="brand"
+                key={index}
+                index={index}
+                _first={{ borderLeftRadius: 6 }}
+                _last={{ borderRightRadius: 6 }}
+              />
             ))}
           </Group>
         </ChakraPinInput.Control>

@@ -5,7 +5,6 @@ import {
   mergeConfigs,
 } from "@chakra-ui/react";
 import { buttonRecipe } from "./recipes/_button";
-import { inputRecipe } from "./recipes/_input";
 
 const customConfig = defineConfig({
   theme: {
@@ -32,6 +31,10 @@ const customConfig = defineConfig({
           200: { value: "#F1F5F9" },
         },
       },
+      fonts: {
+        heading: { value: "Alata" },
+        body: { value: "Open sans, sans-serif" },
+      },
     },
     semanticTokens: {
       colors: {
@@ -47,7 +50,6 @@ const customConfig = defineConfig({
     },
     recipes: {
       button: buttonRecipe,
-      input: inputRecipe,
     },
   },
   globalCss: {

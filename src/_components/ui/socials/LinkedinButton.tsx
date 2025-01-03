@@ -11,7 +11,7 @@ export const LinkedinButton = (props: Props) => {
   return (
     <Button
       size="lg"
-      w="full"
+      w="18rem"
       onClick={props.onClick}
       fontSize={16}
       colorPalette="brand"

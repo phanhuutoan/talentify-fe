@@ -23,12 +23,16 @@ export const Toaster = () => {
             {toast.type === "loading" ? (
               <Spinner size="sm" color="blue.solid" />
             ) : (
-              <Toast.Indicator />
+              <Toast.Indicator fill="white" />
             )}
             <Stack gap="1" flex="1" maxWidth="100%">
-              {toast.title && <Toast.Title>{toast.title}</Toast.Title>}
+              {toast.title && (
+                <Toast.Title color="white">{toast.title}</Toast.Title>
+              )}
               {toast.description && (
-                <Toast.Description>{toast.description}</Toast.Description>
+                <Toast.Description color="white">
+                  {toast.description}
+                </Toast.Description>
               )}
             </Stack>
             {toast.action && (
