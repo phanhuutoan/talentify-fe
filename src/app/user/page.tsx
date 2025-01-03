@@ -3,7 +3,7 @@ import { MainProfile } from "./_components/MainProfile";
 
 const Page = async () => {
   return (
-    <Center>
+    <Center height="100vh" bg='#F8FAFC'>
       <MainProfile />
     </Center>
   );
