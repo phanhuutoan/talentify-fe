@@ -15,7 +15,7 @@ import { ILoginPayload } from "@/_models/auth";
 import { authService } from "@/_services/auth";
 import { toaster } from "@/_components/lib/ui/toaster";
 import { useRouter } from "next/navigation";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { LuChevronRight } from "react-icons/lu";
 
 interface Props {
   email: string | null;
@@ -77,19 +77,19 @@ export const SuccessfulScreen = (props: Props) => {
           Your account has been created!
         </Text>
         <SimpleGrid columns={2} justifyItems="center">
-          <GridItem w="13rem">
+          <GridItem w="13.5rem">
             <Button
               colorPalette="brand"
               onClick={onPrepareProfile}
               loading={isMutating}
             >
               Prepare your profile!{" "}
-              <Icon stroke="white" boxSize={5}>
+              <Icon stroke="white" boxSize={5} ml={1}>
                 <LuUserRoundPen />
               </Icon>
             </Button>
-            <Text textStyle="sm" color="gray.500" mt="1">
-              Don&apos;t miss out thousands of opportunities
+            <Text textStyle="xs" color="gray.500" mt="1">
+              Get ready for lots of opportunities!
             </Text>
           </GridItem>
           <GridItem>
@@ -102,8 +102,8 @@ export const SuccessfulScreen = (props: Props) => {
               loading={isMutating}
             >
               Start now{" "}
-              <Icon fill="brand.100" boxSize={5}>
-                <MdKeyboardDoubleArrowRight />
+              <Icon stroke="brand.100" boxSize={5}>
+                <LuChevronRight />
               </Icon>
             </Button>
           </GridItem>

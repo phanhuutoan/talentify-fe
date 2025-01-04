@@ -2,7 +2,7 @@ import { Checkbox } from "@/_components/lib/ui/checkbox";
 import { InputField } from "@/_components/ui/form/InputField";
 import { GoogleButton } from "@/_components/ui/socials/GoogleButton";
 import { LinkedinButton } from "@/_components/ui/socials/LinkedinButton";
-import { Box, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Icon, Text, VStack } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { useState } from "react";
@@ -20,23 +20,31 @@ import { ApiErrorResponse } from "@/_models/common";
 import { Alert } from "@/_components/lib/ui/alert";
 import { Button } from "@/_components/lib/ui/button";
 import { toaster } from "@/_components/lib/ui/toaster";
+import { SimpleSelectField } from "@/_components/ui/form/SimpleSelect";
+import { CustomLabel } from "@/_components/ui/form/CustomLabel";
+import { phonePrefix } from "../_static-data/phone-prefix";
+import { passwordRequiredRegex, phoneRegExp } from "@/_constants/regex";
 
 const yupValidationSchema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
   lastName: yup.string().required("Last name is required"),
-  phone: yup.string().required("Phone number is required"),
+  phone: yup
+    .string()
+    .required("Phone number is required")
+    .matches(phoneRegExp, "Phone number is invalid"),
   email: yup.string().email().required("Email is required"),
   password: yup
     .string()
     .required("Password is required")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$#\^!%*\-_?&]{8,}$/,
+      passwordRequiredRegex,
       "Password must contain at least 8 characters, one uppercase, one lowercase, one number and one special case character"
     ),
   verifyPassword: yup
     .string()
     .oneOf([yup.ref("password")], "Passwords must match.")
     .required("Verified password is required."),
+  phonePrefix: yup.array(yup.string().required()).required("Code is required"),
 });
 
 type RegisterForm = yup.InferType<typeof yupValidationSchema>;
@@ -55,6 +63,7 @@ export const RegisterFormCandidate = (props: Props) => {
       email: "",
       password: "",
       verifyPassword: "",
+      phonePrefix: undefined,
     },
     resolver: yupResolver(yupValidationSchema),
   });
@@ -69,7 +78,7 @@ export const RegisterFormCandidate = (props: Props) => {
       await signupTrigger({
         lastName: data.lastName,
         surname: data.firstName,
-        phone: data.phone,
+        phone: `${data.phonePrefix}-${data.phone}`,
         email: data.email,
         password: data.password,
         roleId: ROLE_ID.CANDIDATE,
@@ -85,6 +94,12 @@ export const RegisterFormCandidate = (props: Props) => {
   };
 
   const [enableButton, setEnableButton] = useState(false);
+  const allPhonePrefixed = phonePrefix
+    .sort((item1, item2) => item1.country.localeCompare(item2.country))
+    .map((item) => ({
+      label: `${item.country} (${item.prefix})`,
+      value: item.value,
+    }));
 
   const renderSocialMediaRegister = () => {
     return (
@@ -131,6 +146,7 @@ export const RegisterFormCandidate = (props: Props) => {
           borderRadius={8}
           boxShadow="md"
           w="80%"
+          minW="57rem"
           flexDir="column"
           onSubmit={form.handleSubmit(onSubmit)}
         >
@@ -163,12 +179,23 @@ export const RegisterFormCandidate = (props: Props) => {
                 isRequired
                 name="lastName"
               />
-              <InputField
-                label="Phone Number"
-                placeholder="0231232321"
-                isRequired
-                name="phone"
-              />
+              <Box alignSelf="flex-start" w="full">
+                <CustomLabel isRequired>Phone Number</CustomLabel>
+                <HStack justify="flex-start" mt={1} align="flex-start">
+                  <SimpleSelectField
+                    name="phonePrefix"
+                    listItems={allPhonePrefixed}
+                    fieldStyles={{ w: "17rem" }}
+                    placeholder="Select code"
+                  />
+                  <InputField
+                    placeholder="0231232321"
+                    isRequired
+                    name="phone"
+                    fieldStyles={{ w: "full" }}
+                  />
+                </HStack>
+              </Box>
               <InputField
                 label="Email"
                 placeholder="Example@email.com"
