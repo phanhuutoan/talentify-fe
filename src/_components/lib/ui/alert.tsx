@@ -1,6 +1,7 @@
-import { Alert as ChakraAlert } from "@chakra-ui/react";
+import { Alert as ChakraAlert, Text } from "@chakra-ui/react";
 import * as React from "react";
 import { CloseButton } from "./close-button";
+import { MdOutlineErrorOutline } from "react-icons/md";
 
 export interface AlertProps extends Omit<ChakraAlert.RootProps, "title"> {
   startElement?: React.ReactNode;
@@ -23,13 +24,26 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
       endElement,
       ...rest
     } = props;
+
+    const iconCloned = React.cloneElement(icon || <MdOutlineErrorOutline />, {
+      fill: `${props.colorPalette}.700`,
+    });
+
     return (
       <ChakraAlert.Root ref={ref} {...rest}>
-        {startElement || <ChakraAlert.Indicator>{icon}</ChakraAlert.Indicator>}
+        {startElement || (
+          <ChakraAlert.Indicator fill={`${props.colorPalette}.700`}>
+            {iconCloned}
+          </ChakraAlert.Indicator>
+        )}
         {children ? (
           <ChakraAlert.Content>
-            <ChakraAlert.Title>{title}</ChakraAlert.Title>
-            <ChakraAlert.Description>{children}</ChakraAlert.Description>
+            <ChakraAlert.Title>
+              <Text color={`${props.colorPalette}.700`}>{title}</Text>
+            </ChakraAlert.Title>
+            <ChakraAlert.Description color={`${props.colorPalette}.700`}>
+              {children}
+            </ChakraAlert.Description>
           </ChakraAlert.Content>
         ) : (
           <ChakraAlert.Title flex="1">{title}</ChakraAlert.Title>

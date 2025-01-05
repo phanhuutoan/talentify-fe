@@ -10,13 +10,29 @@ const errorList = {
   ERROR006: "Incorrect password",
   ERROR007: "Account with email does not exist",
   ERROR008: "User not verified/not active yet",
+  ERROR009: "User cannot resend code now! retry after 2 minutes",
   ERROR500: "Undefined error",
   ERROR106: "User already verified",
 };
 
-export const getMessageFromError = (error: AxiosError<ApiErrorResponse>) => {
-  const code = error.response?.data.code;
+export const getMessageFromError = (error: unknown) => {
+  const code = (error as AxiosError<ApiErrorResponse>).response?.data.code;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return code ? (errorList as any)[code] : error.message;
+  return code
+    ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (errorList as any)[code]
+    : (error as AxiosError<ApiErrorResponse>).message;
+};
+
+export const setStorageData = (key: string, data: unknown) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const getStorageData = <T>(key: string) => {
+  const data = localStorage.getItem(key);
+  return data ? (JSON.parse(data) as T) : null;
+};
+
+export const removeStorageData = (key: string) => {
+  localStorage.removeItem(key);
 };

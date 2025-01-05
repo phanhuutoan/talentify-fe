@@ -5,7 +5,6 @@ import {
   mergeConfigs,
 } from "@chakra-ui/react";
 import { buttonRecipe } from "./recipes/_button";
-import { inputRecipe } from "./recipes/_input";
 
 const customConfig = defineConfig({
   theme: {
@@ -13,54 +12,55 @@ const customConfig = defineConfig({
       colors: {
         brand: {
           100: {
-            value: "{colors.gray.100}",
+            value: "#FF5722",
           },
           200: {
-            value: "{colors.gray.200}",
+            value: "#FF5722",
           },
           300: {
-            value: "{colors.gray.300}",
+            value: "#F56B13",
           },
           400: {
-            value: "{colors.gray.400}",
-          },
-          500: {
-            value: "{colors.gray.500}",
-          },
-          600: {
-            value: "{colors.gray.600}",
-          },
-          700: {
-            value: "{colors.gray.700}",
-          },
-          800: {
-            value: "{colors.gray.800}",
-          },
-          900: {
-            value: "{colors.gray.900}",
+            value: "#F6872B",
           },
         },
+        dark: {
+          900: { value: "#303841" },
+        },
+        gray: {
+          200: { value: "#F1F5F9" },
+        },
+      },
+      fonts: {
+        heading: { value: "Alata" },
+        body: { value: "Open sans, sans-serif" },
       },
     },
     semanticTokens: {
       colors: {
         brand: {
-          solid: { value: "{colors.brand.900}" },
-          contrast: { value: "{colors.brand.100}" },
-          muted: { value: "{colors.brand.400}" },
-          focusRing: { value: "{colors.brand.900}" },
+          solid: { value: "{colors.brand.100}" },
+          contrast: { value: "{colors.gray.100}" },
+          fg: { value: "{colors.brand.100}" },
+          muted: { value: "{colors.brand.200}" },
+          focusRing: { value: "{colors.brand.400}" },
+          subtle: { value: "{colors.orange.100}" },
         },
       },
     },
     recipes: {
       button: buttonRecipe,
-      input: inputRecipe,
     },
   },
   globalCss: {
     a: {
       "&:hover": {
         borderBottom: "1px solid #333",
+      },
+    },
+    body: {
+      "& *": {
+        color: "gray.900",
       },
     },
   },

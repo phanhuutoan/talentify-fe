@@ -1,14 +1,18 @@
-import { Input, InputProps, Text } from "@chakra-ui/react";
+import { Input, InputProps } from "@chakra-ui/react";
 import { Controller, useFormContext } from "react-hook-form";
 import { BaseFieldProps } from "./_types";
 import { Field, FieldProps } from "@/_components/lib/ui/field";
-import { ErrorMessage } from "@hookform/error-message";
 import { ReactNode } from "react";
+import { PasswordStrength } from "./PasswordStrength";
+import { FormErrorMessage } from "./_formErrMessage";
 
 interface InputFieldProps extends BaseFieldProps {
   inputStyles?: InputProps;
   fieldStyles?: FieldProps;
   labelBuilder?: () => ReactNode;
+  isRequired?: boolean;
+  helperText?: string;
+  isShowPasswordStrength?: boolean;
 }
 
 export const InputField = (props: InputFieldProps) => {
@@ -19,7 +23,10 @@ export const InputField = (props: InputFieldProps) => {
     label,
     inputStyles = {},
     labelBuilder,
+    isRequired,
+    helperText,
     fieldStyles = {},
+    isShowPasswordStrength,
   } = props;
 
   const { control, formState } = useFormContext();
@@ -35,16 +42,10 @@ export const InputField = (props: InputFieldProps) => {
             {...fieldStyles}
             label={labelComponent}
             invalid={!!formState.errors[name]}
+            isRequired={isRequired}
+            helperText={helperText}
             errorText={
-              <ErrorMessage
-                errors={formState.errors}
-                name={name}
-                render={({ message }) => (
-                  <Text color="red.500" textStyle="sm" fontWeight={500}>
-                    {message}
-                  </Text>
-                )}
-              />
+              <FormErrorMessage errors={formState.errors} name={name} />
             }
           >
             <Input
@@ -53,8 +54,10 @@ export const InputField = (props: InputFieldProps) => {
               type={type}
               placeholder={placeholder}
               colorPalette={"brand"}
+              _placeholder={{ color: "gray.400" }}
               {...inputStyles}
             />
+            {isShowPasswordStrength && <PasswordStrength value={field.value} />}
           </Field>
         </>
       )}

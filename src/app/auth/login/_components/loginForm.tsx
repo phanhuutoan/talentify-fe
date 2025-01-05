@@ -1,17 +1,15 @@
 "use client";
 import { InputField } from "@/_components/ui/form/InputField";
-import { ILoginPayload, ILoginResponse } from "@/_models/auth";
+import { ILoginPayload } from "@/_models/auth";
 import {
   Box,
   Center,
-  Flex,
   Text,
-  Field as ChakraField,
   SimpleGrid,
   GridItem,
+  Flex,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Link from "next/link";
 import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import Image from "next/image";
@@ -19,7 +17,6 @@ import LoginImage from "@/_images/login-1.jpg";
 import useSWRMutation from "swr/mutation";
 import { authService } from "@/_services/auth";
 import { Button } from "@/_components/lib/ui/button";
-import { setCookie } from "@/app/api/jwt/fetcher";
 import { useRouter } from "next/navigation";
 import { toaster } from "@/_components/lib/ui/toaster";
 import { AxiosError } from "axios";
@@ -28,6 +25,7 @@ import { getMessageFromError } from "@/_utils";
 import { Alert } from "@/_components/lib/ui/alert";
 import { useState } from "react";
 import { Metadata } from "next";
+import Link from "next/link";
 
 const loginValidation = yup.object({
   email: yup.string().email().required(),
@@ -50,19 +48,19 @@ const LoginForm = () => {
 
   const loginUser = async (payload: ILoginPayload) => {
     try {
-      const responseData = await trigger({ ...payload });
-      const { token, expiredAt } = responseData.data as ILoginResponse;
-      await setCookie(token, expiredAt);
+      await trigger({ ...payload });
       toaster.success({
         title: "Login successfully! navigating...",
       });
-      router.push("/user");
+      setTimeout(() => {
+        router.push("/user");
+      }, 1000);
     } catch (error) {
       setErrorMsg(getMessageFromError(error as AxiosError<ApiErrorResponse>));
     }
   };
   return (
-    <SimpleGrid id="login-grid" columns={3} gap={0} w="full">
+    <SimpleGrid id="login-grid" columns={3} gap={0} w="full" bgColor="gray.200">
       <GridItem>
         <Image
           style={{ height: "100vh", objectFit: "cover" }}
@@ -77,8 +75,17 @@ const LoginForm = () => {
             borderColor={"gray.200"}
             p={8}
             borderRadius={8}
+            bgColor="white"
+            boxShadow="md"
+            w={"27rem"}
           >
-            <Text as="h1" textStyle="3xl" fontWeight={700} mb={2}>
+            <Text
+              as="h1"
+              textStyle="3xl"
+              fontWeight={700}
+              mb={2}
+              fontFamily="heading"
+            >
               Login
             </Text>
             {errorMsg ? (
@@ -90,10 +97,9 @@ const LoginForm = () => {
             )}
             {errorMsg && (
               <Alert
-                status="error"
+                colorPalette="red"
                 title="Login errors!"
                 mb={4}
-                // closable
                 onClose={() => setErrorMsg("")}
               >
                 {errorMsg}
@@ -111,15 +117,20 @@ const LoginForm = () => {
 
                 <InputField
                   name="password"
-                  labelBuilder={() => (
-                    <Flex h="1.2rem">
-                      <ChakraField.Label mr="8rem">Password</ChakraField.Label>
-                      <Link href="#">Forgot your password?</Link>
-                    </Flex>
-                  )}
+                  label="Password"
                   type="password"
                   placeholder="*******"
                 />
+                <Link href="#">
+                  <Text
+                    textStyle="sm"
+                    color="brand.100"
+                    mt={2}
+                    display="inline-block"
+                  >
+                    Forgot your password?
+                  </Text>
+                </Link>
 
                 <Button
                   loading={isMutating}
@@ -130,9 +141,19 @@ const LoginForm = () => {
                 >
                   Login
                 </Button>
-                <Button w="full" mt={3} variant="outline">
+                <Button w="full" mt={3} variant="outline" boxShadow="xs">
                   Login with Google
                 </Button>
+                <Flex>
+                  <Text textStyle="sm" color="gray.400" mt={4}>
+                    Don&apos;t have an account?
+                  </Text>
+                  <Link href="/auth/register">
+                    <Text textStyle="sm" color="brand.100" mt={4} ml={1}>
+                      Register
+                    </Text>
+                  </Link>
+                </Flex>
               </form>
             </FormProvider>
           </Box>
