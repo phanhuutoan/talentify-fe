@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { SelectRole } from "./_components/SelectRole";
+import { SelectRole } from "./_components/Steps/SelectRole";
 import { ROLE_ID } from "@/_models/enum";
-import { RegisterFormCandidate } from "./_components/RegisterFormCandidate";
-import { RegisterFormRecruiter } from "./_components/RegisterFormRecruiter";
-import { VerifyOTP } from "./_components/VerifyOTP";
-import { SuccessfulScreen } from "./_components/SuccessfulScreen";
+import { RegisterFormCandidate } from "./_components/Steps/RegisterFormCandidate";
+import { RegisterFormRecruiter } from "./_components/Steps/RegisterFormRecruiter";
+import { VerifyOTP } from "./_components/Steps/VerifyOTP";
+import { SuccessfulScreen } from "./_components/Steps/SuccessfulScreen";
 import { getStorageData, removeStorageData, setStorageData } from "@/_utils";
 
 enum StepScreen {
@@ -98,7 +98,12 @@ const RegisterPage = () => {
             />
           );
         }
-        return <RegisterFormRecruiter />;
+        return (
+          <RegisterFormRecruiter
+            onBackClick={onFormBackClick}
+            onSignupSuccess={onSignupSuccess}
+          />
+        );
       case StepScreen.OTP:
         return (
           <VerifyOTP email={finalData.email} onSuccess={onOTPVerifySuccess} />
