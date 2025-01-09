@@ -27,6 +27,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { validIndustries } from "@/_static-data/valid-industries";
 import { Checkbox } from "@/_components/lib/ui/checkbox";
 import { FormErrorMessage } from "../_formErrMessage";
+import { Tooltip } from "@/_components/lib/ui/tooltip";
 
 interface Props {
   formName: string;
@@ -34,14 +35,13 @@ interface Props {
 }
 
 export const IndustrySelectionField = (props: Props) => {
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
 
   const onDoneSelect = () => {
     props.onDoneClick?.();
-    console.log("Selected industries", industries.field.value);
   };
 
-  const industries = useController<{ [props.formName]: string[] }>({
+  const industries = useController<{ [key: string]: string[] }>({
     control,
     name: props.formName,
     defaultValue: [],
@@ -71,7 +71,7 @@ export const IndustrySelectionField = (props: Props) => {
                       mb={2}
                       borderRadius="50px"
                       border="2px solid"
-                      borderColor={isActive ? "brand.100" : "gray.900"}
+                      borderColor={isActive ? "brand.100" : "gray.700"}
                       w="fit-content"
                       p=".7rem 1.2rem"
                     >
@@ -107,6 +107,39 @@ export const IndustrySelectionField = (props: Props) => {
     );
   };
 
+  const renderIndustriesReview = () => {
+    return (
+      <Flex w="full" wrap="wrap" mt="-1rem">
+        {industries.field.value.map((ind) => (
+          <Tooltip
+            content="Click to remove"
+            key={ind}
+            showArrow
+            positioning={{ placement: "bottom" }}
+            openDelay={100}
+            closeDelay={300}
+          >
+            <Button
+              size="sm"
+              colorPalette="orange"
+              variant="subtle"
+              mr={4}
+              mt={4}
+              onClick={() => {
+                setValue(
+                  props.formName,
+                  industries.field.value.filter((industry) => industry !== ind)
+                );
+              }}
+            >
+              {ind}
+            </Button>
+          </Tooltip>
+        ))}
+      </Flex>
+    );
+  };
+
   return (
     <>
       <DialogRoot size="xl" placement="center">
@@ -132,20 +165,7 @@ export const IndustrySelectionField = (props: Props) => {
             />
           </Box>
         </DialogTrigger>
-        <Flex w="full" wrap="wrap" mt="-1rem">
-          {industries.field.value.map((ind) => (
-            <Button
-              size="sm"
-              colorPalette="orange"
-              variant="subtle"
-              key={ind}
-              mr={4}
-              mt={4}
-            >
-              {ind}
-            </Button>
-          ))}
-        </Flex>
+        {renderIndustriesReview()}
         <DialogContent>
           <DialogCloseTrigger />
           <DialogHeader>

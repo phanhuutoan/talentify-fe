@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   cookieStore.set({
     name: "auth",
-    value: JSON.stringify(body.token),
+    value: JSON.stringify(body),
     secure: true,
   });
   return new NextResponse();

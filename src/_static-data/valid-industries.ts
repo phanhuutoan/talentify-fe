@@ -20,12 +20,12 @@ export const validIndustries = [
     desc: "Finance, Banking, Insurance, Real Estate, Retail, Tourism, Education, Healthcare, Transport, Media",
   },
   {
-    title: "Legal and Political",
-    desc: "Politics, Law",
-  },
-  {
     title: "Agriculture",
     desc: "Crop production, Livestock, Forestry, Fishery, Food Processing",
+  },
+  {
+    title: "Legal and Political",
+    desc: "Politics, Law",
   },
   {
     title: "Arts and Culture",

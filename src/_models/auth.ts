@@ -15,9 +15,11 @@ export interface ISignupPayload {
   password: string;
   roleId: string;
   phone?: string;
-  address?: string;
-  city?: string;
-  companyName?: string;
-  country?: string;
-  industry?: string;
+  company?: {
+    name: string;
+    industry: string[];
+    address: string;
+    city: string;
+    country: string;
+  };
 }

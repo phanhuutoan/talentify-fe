@@ -10,6 +10,14 @@ import { CustomLabel } from "@/_components/ui/form/CustomLabel";
 import { SimpleSelectField } from "@/_components/ui/form/SimpleSelect";
 import { IndustrySelectionField } from "@/_components/ui/form/ComposedField/IndustrySelection";
 import { phonePrefix } from "@/_static-data/phone-prefix";
+import useSWRMutation from "swr/mutation";
+import { ISignupPayload } from "@/_models/auth";
+import { authService } from "@/_services/auth";
+import { toaster } from "@/_components/lib/ui/toaster";
+import { ROLE_ID } from "@/_models/enum";
+import { getMessageFromError } from "@/_utils";
+import { AxiosError } from "axios";
+import { ApiErrorResponse } from "@/_models/common";
 
 const yupValidationSchema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -38,7 +46,7 @@ const yupValidationSchema = yup.object().shape({
     address: yup.string().required("Address is required"),
     industry: yup
       .array()
-      .of(yup.string())
+      .of(yup.string().required())
       .min(1, "At least one industry is required")
       .required("Industry is required"),
   }),
@@ -72,10 +80,33 @@ export const RegisterFormRecruiter = (props: Props) => {
     resolver: yupResolver(yupValidationSchema),
   });
 
-  const onSubmit = (data: RegisterForm) => {
-    console.log(data);
-  };
+  const { isMutating, trigger: signupTrigger } = useSWRMutation(
+    "auth/sign-up",
+    (_1, { arg }: { arg: ISignupPayload }) => authService.signup(arg)
+  );
   const [signupErr, setSignupErr] = useState<string | null>(null);
+
+  const onSubmit = async (data: RegisterForm) => {
+    try {
+      await signupTrigger({
+        lastName: data.lastName,
+        surname: data.firstName,
+        phone: `${data.phonePrefix}-${data.phone}`,
+        email: data.email,
+        password: data.password,
+        roleId: ROLE_ID.EMPLOYER,
+        company: data.company,
+      });
+      toaster.success({
+        title: "Signup successfully! navigating...",
+      });
+      props.onSignupSuccess?.(data.email, data.password);
+    } catch (error) {
+      window.scrollTo(0, 0);
+      setSignupErr(getMessageFromError(error as AxiosError<ApiErrorResponse>));
+    }
+  };
+
   const allPhonePrefixed = phonePrefix
     .sort((item1, item2) => item1.country.localeCompare(item2.country))
     .map((item) => ({
@@ -86,7 +117,7 @@ export const RegisterFormRecruiter = (props: Props) => {
   return (
     <FormLayout<RegisterForm>
       formName="Employer"
-      isMutating={false}
+      isMutating={isMutating}
       form={form}
       onSubmit={onSubmit}
       signUpErr={signupErr}
