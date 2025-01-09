@@ -4,7 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const cookieStore = await cookies();
   const body = await req.json();
-  cookieStore.set("auth", JSON.stringify(body));
+  cookieStore.set({
+    name: "auth",
+    value: JSON.stringify(body),
+    secure: true,
+  });
   return new NextResponse();
 }
 

@@ -6,15 +6,24 @@ export interface CheckboxProps extends ChakraCheckbox.RootProps {
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   rootRef?: React.Ref<HTMLLabelElement>;
   strokeColor?: string;
+  controlProps?: ChakraCheckbox.ControlProps;
 }
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   function Checkbox(props, ref) {
-    const { icon, children, inputProps, rootRef, strokeColor, ...rest } = props;
+    const {
+      icon,
+      children,
+      inputProps,
+      rootRef,
+      strokeColor,
+      controlProps,
+      ...rest
+    } = props;
     return (
       <ChakraCheckbox.Root ref={rootRef} {...rest}>
         <ChakraCheckbox.HiddenInput ref={ref} {...inputProps} />
-        <ChakraCheckbox.Control>
+        <ChakraCheckbox.Control {...controlProps}>
           {icon || <ChakraCheckbox.Indicator stroke={strokeColor} />}
         </ChakraCheckbox.Control>
         {children != null && (

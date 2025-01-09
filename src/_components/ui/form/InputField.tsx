@@ -5,6 +5,7 @@ import { Field, FieldProps } from "@/_components/lib/ui/field";
 import { ReactNode } from "react";
 import { PasswordStrength } from "./PasswordStrength";
 import { FormErrorMessage } from "./_formErrMessage";
+import { get } from "lodash";
 
 interface InputFieldProps extends BaseFieldProps {
   inputStyles?: InputProps;
@@ -31,6 +32,9 @@ export const InputField = (props: InputFieldProps) => {
 
   const { control, formState } = useFormContext();
   const labelComponent = labelBuilder ? labelBuilder() : label;
+
+  const error = get(formState.errors, name);
+
   return (
     <Controller
       name={name}
@@ -41,7 +45,7 @@ export const InputField = (props: InputFieldProps) => {
             {...field}
             {...fieldStyles}
             label={labelComponent}
-            invalid={!!formState.errors[name]}
+            invalid={!!error}
             isRequired={isRequired}
             helperText={helperText}
             errorText={

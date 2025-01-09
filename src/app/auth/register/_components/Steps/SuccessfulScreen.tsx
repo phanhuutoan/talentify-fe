@@ -16,11 +16,13 @@ import { authService } from "@/_services/auth";
 import { toaster } from "@/_components/lib/ui/toaster";
 import { useRouter } from "next/navigation";
 import { LuChevronRight } from "react-icons/lu";
+import { ROLE_ID } from "@/_models/enum";
 
 interface Props {
   email: string | null;
   password: string | null;
   onFinish: () => void;
+  role: ROLE_ID;
 }
 export const SuccessfulScreen = (props: Props) => {
   const { isMutating, trigger: signinTrigger } = useSWRMutation(
@@ -68,6 +70,7 @@ export const SuccessfulScreen = (props: Props) => {
     );
     props.onFinish();
   };
+  const isCandidate = props.role === ROLE_ID.CANDIDATE;
 
   return (
     <Center w="100vw" h="100vh" bg="gray.100">
@@ -77,22 +80,24 @@ export const SuccessfulScreen = (props: Props) => {
           Your account has been created!
         </Text>
         <SimpleGrid columns={2} justifyItems="center">
-          <GridItem w="13.5rem">
-            <Button
-              colorPalette="brand"
-              onClick={onPrepareProfile}
-              loading={isMutating}
-            >
-              Prepare your profile!{" "}
-              <Icon stroke="white" boxSize={5} ml={1}>
-                <LuUserRoundPen />
-              </Icon>
-            </Button>
-            <Text textStyle="xs" color="gray.500" mt="1">
-              Get ready for lots of opportunities!
-            </Text>
-          </GridItem>
-          <GridItem>
+          {isCandidate && (
+            <GridItem w="13.5rem">
+              <Button
+                colorPalette="brand"
+                onClick={onPrepareProfile}
+                loading={isMutating}
+              >
+                Prepare your profile!{" "}
+                <Icon stroke="white" boxSize={5} ml={1}>
+                  <LuUserRoundPen />
+                </Icon>
+              </Button>
+              <Text textStyle="xs" color="gray.500" mt="1">
+                Get ready for lots of opportunities!
+              </Text>
+            </GridItem>
+          )}
+          <GridItem colSpan={isCandidate ? 1 : 2}>
             <Button
               variant="outline"
               colorPalette="brand"
@@ -100,6 +105,7 @@ export const SuccessfulScreen = (props: Props) => {
               _hover={{ bgColor: "orange.100" }}
               onClick={onStartNow}
               loading={isMutating}
+              w={!isCandidate ? "12rem" : undefined}
             >
               Start now{" "}
               <Icon stroke="brand.100" boxSize={5}>
