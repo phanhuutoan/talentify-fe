@@ -63,6 +63,7 @@ const RegisterPage = () => {
     setFinalData({
       ...finalData,
       roleId: null,
+      currentStep: StepScreen.ROLE_SELECTION,
     });
   };
 
