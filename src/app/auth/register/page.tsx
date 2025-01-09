@@ -114,6 +114,7 @@ const RegisterPage = () => {
             onFinish={onFinish}
             email={finalData.email}
             password={finalData.password}
+            role={role as ROLE_ID}
           />
         );
     }
