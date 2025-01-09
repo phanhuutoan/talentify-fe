@@ -41,7 +41,7 @@ const LoginForm = () => {
   const { isMutating, trigger } = useSWRMutation(
     "auth/sign-in",
     (_1, { arg }: { arg: ILoginPayload }) =>
-      authService.login(arg.email, arg.password)
+      authService.login(arg.email, arg.password),
   );
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
@@ -60,15 +60,22 @@ const LoginForm = () => {
     }
   };
   return (
-    <SimpleGrid id="login-grid" columns={3} gap={0} w="full" bgColor="gray.200">
-      <GridItem>
+    <SimpleGrid
+      id="login-grid"
+      columns={3}
+      gap={0}
+      w="full"
+      bgColor="gray.200"
+      px={{ base: ".5rem", md: 0 }}
+    >
+      <GridItem hideBelow="md">
         <Image
           style={{ height: "100vh", objectFit: "cover" }}
           src={LoginImage}
           alt="logo"
         />
       </GridItem>
-      <GridItem colSpan={2}>
+      <GridItem colSpan={{ base: 3, md: 2 }}>
         <Center alignItems={"center"} h="100vh">
           <Box
             border="1px solid"
@@ -77,11 +84,11 @@ const LoginForm = () => {
             borderRadius={8}
             bgColor="white"
             boxShadow="md"
-            w={"27rem"}
+            w={{ base: "full", sm: "27rem" }}
           >
             <Text
               as="h1"
-              textStyle="3xl"
+              textStyle={{ base: "2xl", md: "3xl", lg: "5xl" }}
               fontWeight={700}
               mb={2}
               fontFamily="heading"
