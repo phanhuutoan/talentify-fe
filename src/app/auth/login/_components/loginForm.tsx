@@ -41,7 +41,7 @@ const LoginForm = () => {
   const { isMutating, trigger } = useSWRMutation(
     "auth/sign-in",
     (_1, { arg }: { arg: ILoginPayload }) =>
-      authService.login(arg.email, arg.password)
+      authService.login(arg.email, arg.password),
   );
   const router = useRouter();
   const [errorMsg, setErrorMsg] = useState("");
