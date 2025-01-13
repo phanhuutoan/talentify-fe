@@ -27,7 +27,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { validIndustries } from "@/_static-data/valid-industries";
 import { Checkbox } from "@/_components/lib/ui/checkbox";
 import { FormErrorMessage } from "../_formErrMessage";
-import { Tooltip } from "@/_components/lib/ui/tooltip";
+import { IoIosRemoveCircleOutline } from "react-icons/io";
 
 interface Props {
   formName: string;
@@ -111,30 +111,25 @@ export const IndustrySelectionField = (props: Props) => {
     return (
       <Flex w="full" wrap="wrap" mt="-1rem">
         {industries.field.value.map((ind) => (
-          <Tooltip
-            content="Click to remove"
+          <Button
+            size="sm"
             key={ind}
-            showArrow
-            positioning={{ placement: "bottom" }}
-            openDelay={100}
-            closeDelay={300}
+            colorPalette="orange"
+            variant="subtle"
+            mr={4}
+            mt={4}
+            onClick={() => {
+              setValue(
+                props.formName,
+                industries.field.value.filter((industry) => industry !== ind),
+              );
+            }}
           >
-            <Button
-              size="sm"
-              colorPalette="orange"
-              variant="subtle"
-              mr={4}
-              mt={4}
-              onClick={() => {
-                setValue(
-                  props.formName,
-                  industries.field.value.filter((industry) => industry !== ind)
-                );
-              }}
-            >
-              {ind}
-            </Button>
-          </Tooltip>
+            <Icon fill="orange.700" boxSize={4}>
+              <IoIosRemoveCircleOutline />
+            </Icon>
+            {ind}
+          </Button>
         ))}
       </Flex>
     );
@@ -142,7 +137,7 @@ export const IndustrySelectionField = (props: Props) => {
 
   return (
     <>
-      <DialogRoot size="xl" placement="center">
+      <DialogRoot size="2xl" placement="center">
         <DialogBackdrop />
         <DialogTrigger asChild>
           <Box w="full">

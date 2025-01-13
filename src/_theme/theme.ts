@@ -5,6 +5,7 @@ import {
   mergeConfigs,
 } from "@chakra-ui/react";
 import { buttonRecipe } from "./recipes/_button";
+import { dialogRecipe } from "./recipes/_dialog";
 
 const customConfig = defineConfig({
   theme: {
@@ -50,6 +51,9 @@ const customConfig = defineConfig({
     },
     recipes: {
       button: buttonRecipe,
+    },
+    slotRecipes: {
+      dialog: dialogRecipe,
     },
   },
   globalCss: {

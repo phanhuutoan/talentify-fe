@@ -62,7 +62,7 @@ export const FormLayout = <F extends FieldValues>(props: Props<F>) => {
         p={8}
         borderRadius={8}
         boxShadow="md"
-        w="80%"
+        w="75%"
         minW="57rem"
         flexDir="column"
         onSubmit={form.handleSubmit(onSubmit)}
