@@ -19,11 +19,20 @@ export const JobCategories = () => {
   ];
 
   return (
-    <Flex mt={20} justify="space-between">
-      <Text textStyle="4xl" fontWeight="600">
+    <Flex
+      mt={20}
+      justify="space-between"
+      flexDir={{ base: "column", lg: "row" }}
+    >
+      <Text textStyle="4xl" fontWeight="600" mb={{ base: 8, lg: 0 }}>
         Job Categories
       </Text>
-      <Flex w="62%" wrap="wrap" justify="flex-end">
+      <Flex
+        w={{ base: "100%", md: "65%" }}
+        wrap="wrap"
+        justify={{ base: "center", lg: "flex-end" }}
+        align={{ base: "flex-start", lg: "flex-end" }}
+      >
         {listCategories.map((category, index) => {
           return (
             <Button
@@ -34,9 +43,9 @@ export const JobCategories = () => {
               key={index}
               mr={2}
               mb={4}
-              py={6}
-              px={6}
-              size={"lg"}
+              py={{ base: undefined, md: 6 }}
+              px={{ base: undefined, md: 6 }}
+              size={{ base: "sm", md: "md", lg: "lg" }}
             >
               {category}
             </Button>

@@ -25,9 +25,13 @@ export const Quality = () => {
       <Text textStyle="3xl" mb="3.5rem" fontWeight="600">
         We are building the quality of each candidate
       </Text>
-      <SimpleGrid columns={3} gap={20}>
+      <SimpleGrid columns={3} gap={{ md: 5, lg: 20 }}>
         {benefits.map((benefit, index) => (
-          <GridItem key={index}>
+          <GridItem
+            key={index}
+            colSpan={{ base: 3, md: 1 }}
+            mb={{ base: 8, md: 0 }}
+          >
             <Flex
               key={index}
               flexDir="column"

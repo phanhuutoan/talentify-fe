@@ -60,7 +60,10 @@ export const BlogPosts = () => {
             Discover insights, stories, and tips across a variety of topics.
           </Text>
         </Box>
-        <SimpleGrid columns={{ base: 1, md: 3 }} gap={20}>
+        <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          gap={{ base: 10, md: 6, lg: 20 }}
+        >
           {dummyDataArticles.map((article, index) => (
             <GridItem key={index}>
               <Link href="/blog/[slug]" as={`/blog/${article.title}`}>
@@ -111,8 +114,17 @@ export const BlogPosts = () => {
                       {article.author.name}
                     </Text>
                   </Box>
-                  <Box p={8} bgColor="white" h="15rem" borderBottomRadius={8}>
-                    <Text textStyle="xl" fontWeight={600} color="brand.300">
+                  <Box
+                    p={{ base: 2, md: 6, lg: 8 }}
+                    bgColor="white"
+                    h="15rem"
+                    borderBottomRadius={8}
+                  >
+                    <Text
+                      textStyle={{ md: "md", lg: "xl" }}
+                      fontWeight={600}
+                      color="brand.300"
+                    >
                       {article.title}
                     </Text>
                     <Text mt={2} color="gray.600">

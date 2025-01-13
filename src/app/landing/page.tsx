@@ -17,7 +17,7 @@ export default function LandingPage() {
         <JobCategories />
       </Container>
       <Container maxW="full" pb={12}>
-        <Separator my={20} />
+        <Separator my={{ base: 10, md: 20 }} />
         <PartnerSlider />
       </Container>
       <BlogPosts />

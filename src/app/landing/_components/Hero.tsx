@@ -3,7 +3,6 @@ import {
   Box,
   Flex,
   GridItem,
-  HStack,
   SimpleGrid,
   Text,
   Image,
@@ -108,22 +107,22 @@ export const Hero = () => {
         h="32rem"
         borderRadius="2rem"
         mb="3.2rem"
-        py="2.8rem"
+        py={{ base: "2rem", md: "1rem", lg: "2.8rem" }}
         px="4rem"
       >
         <Flex w="full" justify="center">
           <LogoIcon w="11rem" height="4rem" fill="gray.800" />
         </Flex>
         <SimpleGrid columns={4} gap={4} mt={8} justifyItems="center">
-          <GridItem>
+          <GridItem hideBelow="md">
             <Box pos="relative" _after={{ ...boxAfterStyle, left: "-2rem" }}>
               <Image src={heroBiz1.src} alt="hero-biz-1" css={imgStyle} />
             </Box>
           </GridItem>
-          <GridItem colSpan={2}>
+          <GridItem colSpan={{ base: 4, md: 2 }}>
             <Flex flexDir={"column"} align="center" h="full">
               <Text
-                textStyle="5xl"
+                textStyle={{ base: "3xl", md: "4xl", lg: "5xl" }}
                 fontWeight="600"
                 color="gray.800"
                 fontFamily="heading"
@@ -137,7 +136,7 @@ export const Hero = () => {
                 mt="4.5rem"
                 justify="center"
                 align="center"
-                gap="8"
+                gap={{ base: 4, lg: 8 }}
               >
                 {renderSpecialButton(
                   "Join us as RECRUITER!",
@@ -150,13 +149,13 @@ export const Hero = () => {
               </Flex>
             </Flex>
           </GridItem>
-          <GridItem>
+          <GridItem hideBelow="md">
             <Box pos="relative" _after={{ ...boxAfterStyle, right: "-2rem" }}>
               <Image src={heroBiz2.src} alt="hero-biz-2" css={imgStyle} />
             </Box>
           </GridItem>
         </SimpleGrid>
-        <Flex justify="center" mt="4rem">
+        <Flex justify="center" mt={{ base: "2rem", lg: "4rem" }}>
           <Tooltip
             content="Contact us via email"
             showArrow
@@ -176,11 +175,21 @@ export const Hero = () => {
         </Flex>
       </Box>
       {/* Numbers */}
-      <Flex align="flex-start" justify="space-between" id="numbers-section">
-        <Text textStyle="2xl" fontWeight="600" w="17rem">
+      <Flex
+        align="flex-start"
+        flexDir={{ base: "column", lg: "row" }}
+        justify="space-between"
+        id="numbers-section"
+      >
+        <Text
+          textStyle="2xl"
+          fontWeight="600"
+          w="17rem"
+          mb={{ base: "2rem", lg: 0 }}
+        >
           OUR NUMBERS TELL MORE ABOUT US
         </Text>
-        <HStack gap={16}>
+        <Flex gap={16} flexDir={{ base: "column", md: "row" }}>
           {numberData.map((item, index) => (
             <CountUp
               key={index}
@@ -214,7 +223,7 @@ export const Hero = () => {
               )}
             </CountUp>
           ))}
-        </HStack>
+        </Flex>
       </Flex>
     </Box>
   );
