@@ -6,6 +6,7 @@ import { JobCategories } from "./_components/JobCategories";
 import { PartnerSlider } from "./_components/PartnetSlider";
 import { BlogPosts } from "./_components/BlogPosts";
 import { Footer } from "./_components/Footer";
+import { Subscription } from "./_components/Subscription";
 
 export default function LandingPage() {
   return (
@@ -22,6 +23,7 @@ export default function LandingPage() {
       </Container>
       <BlogPosts />
       <Container maxW="7xl">
+        <Subscription />
         <Footer />
       </Container>
     </>

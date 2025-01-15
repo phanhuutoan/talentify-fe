@@ -24,7 +24,11 @@ export const JobCategories = () => {
       justify="space-between"
       flexDir={{ base: "column", lg: "row" }}
     >
-      <Text textStyle="4xl" fontWeight="600" mb={{ base: 8, lg: 0 }}>
+      <Text
+        textStyle={{ base: "3xl", md: "4xl" }}
+        fontWeight="600"
+        mb={{ base: 8, lg: 0 }}
+      >
         Job Categories
       </Text>
       <Flex
