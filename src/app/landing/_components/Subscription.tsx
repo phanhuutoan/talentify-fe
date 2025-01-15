@@ -8,6 +8,7 @@ import useSWRMutation from "swr/mutation";
 import { landingService } from "@/_services/landing";
 import { emailRegex } from "@/_constants/regex";
 import { toaster } from "@/_components/lib/ui/toaster";
+import { LogoIcon } from "@/_images/svgs/Logo";
 
 export const Subscription = () => {
   const [value, setValue] = useState("");
@@ -37,7 +38,12 @@ export const Subscription = () => {
   };
   const { onClose, onOpen, Dialog } = useConfirmDialog({
     isOpen: false,
-    title: <Text textStyle="2xl">Thank you for subscribing us!</Text>,
+    title: (
+      <Box>
+        <LogoIcon w="7rem" h="2rem" fill="brand.100" />
+        <Text textStyle="2xl">Thank you for subscribing us!</Text>
+      </Box>
+    ),
     body: (
       <Text textStyle="lg">
         We will keep you updated with the latest news and updates.
@@ -57,7 +63,7 @@ export const Subscription = () => {
       bgImage={`url(${HeroBg.src})`}
       bgSize="cover"
       bgPos="center"
-      p={{ base: 10, md: 15, lg: 20 }}
+      p={{ base: 5, md: 15, lg: 20 }}
       pb={{ base: 20, md: 22, lg: 36 }}
       borderRadius="2rem"
       mb="3rem"
@@ -75,7 +81,11 @@ export const Subscription = () => {
         <br />
         Stay ahead of the curve and be a part of the action before anyone else!
       </Text>
-      <Flex gap={6} align="center" w={{ base: "100%", md: "80%", lg: "65%" }}>
+      <Flex
+        gap={{ base: 3, md: 6 }}
+        align="center"
+        w={{ base: "100%", md: "80%", lg: "65%" }}
+      >
         <Input
           size={{ base: "md", md: "lg", lg: "xl" }}
           placeholder="Your email here"
@@ -91,6 +101,7 @@ export const Subscription = () => {
           textTransform="uppercase"
           onClick={subscribe}
           loading={isMutating}
+          size={{ base: "sm", md: "md" }}
         >
           Subscribe now
         </Button>
