@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const publicPages = ["/auth/", "/_next/", "/favicon.ico"];
-const specialPages = ["/landing"];
+const specialPages = ["/landing", "/"];
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;

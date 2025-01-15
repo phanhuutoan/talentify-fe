@@ -1,16 +1,11 @@
 import { ILoginResponse, ISignupPayload } from "@/_models/auth";
 import { ApiErrorResponse } from "@/_models/common";
 import { removeCookie, setCookie } from "@/app/api/jwt/fetcher";
-import axios from "axios";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-const axiosInstance = axios.create({
-  baseURL: BASE_URL,
-});
+import { mainApiInstance } from "./_axiosInstance";
 
 const login = async (email: string, password: string) => {
   try {
-    const response = await axiosInstance.post<
+    const response = await mainApiInstance.post<
       ILoginResponse | ApiErrorResponse
     >(`/auth/sign-in`, {
       email,
@@ -30,24 +25,26 @@ const logout = async () => {
 };
 
 const signup = async (payload: ISignupPayload) => {
-  const response = await axiosInstance.post<ISignupPayload | ApiErrorResponse>(
-    `/auth/sign-up`,
-    payload
-  );
+  const response = await mainApiInstance.post<
+    ISignupPayload | ApiErrorResponse
+  >(`/auth/sign-up`, payload);
   return response;
 };
 
 const verifyOTP = async (email: string, otp: string) => {
-  const response = await axiosInstance.post<ApiErrorResponse>(`/auth/verify`, {
-    email,
-    code: otp,
-  });
+  const response = await mainApiInstance.post<ApiErrorResponse>(
+    `/auth/verify`,
+    {
+      email,
+      code: otp,
+    },
+  );
   return response;
 };
 
 const resendOTP = async (email: string) => {
-  const response = await axiosInstance.post<ApiErrorResponse>(
-    `/auth/resend-code?email=${email}`
+  const response = await mainApiInstance.post<ApiErrorResponse>(
+    `/auth/resend-code?email=${email}`,
   );
   return response;
 };
