@@ -11,6 +11,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@apollo/client": "^3.12.6",
     "@chakra-ui/react": "^3.2.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -21,6 +22,7 @@
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "framer-motion": "^11.15.0",
+    "graphql": "^16.10.0",
     "lint-staged": "^15.3.0",
     "lodash": "^4.17.21",
     "next": "^15.1.0",

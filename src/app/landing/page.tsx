@@ -5,8 +5,8 @@ import { Quality } from "./_components/Quality";
 import { JobCategories } from "./_components/JobCategories";
 import { PartnerSlider } from "./_components/PartnetSlider";
 import { BlogPosts } from "./_components/BlogPosts";
-import { Footer } from "./_components/Footer";
 import { Subscription } from "./_components/Subscription";
+import { Footer } from "@/_components/ui/Footer";
 
 export default function LandingPage() {
   return (

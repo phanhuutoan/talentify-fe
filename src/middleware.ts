@@ -9,24 +9,22 @@ export function middleware(req: NextRequest) {
   const authData = req.cookies.get("auth"); // For cookies
   const isPublicPage = publicPages.some((page) => currentPath.startsWith(page));
   const isExactMatch = specialPages.some((page) => currentPath === page);
+  let isAuth = false;
+  isAuth = !!authData;
 
-  if ((isPublicPage || isExactMatch) && !authData) {
+  if (authData) {
+    const authInfo = JSON.parse(authData.value) as {
+      token: string;
+      expiredAt: string;
+    };
+    const expiredAt = new Date(authInfo.expiredAt);
+    const now = new Date();
+    isAuth = now < expiredAt && !!authInfo.token;
+  }
+
+  if ((isPublicPage || isExactMatch) && !isAuth) {
     return NextResponse.next();
   }
-
-  if (!authData || !authData.value) {
-    url.pathname = "/auth/login";
-    req.cookies.delete("auth");
-    return NextResponse.redirect(url);
-  }
-
-  const authInfo = JSON.parse(authData.value) as {
-    token: string;
-    expiredAt: string;
-  };
-  const expiredAt = new Date(authInfo.expiredAt);
-  const now = new Date();
-  const isAuth = now < expiredAt && authInfo.token;
 
   if (!isAuth) {
     url.pathname = "/auth/login";
