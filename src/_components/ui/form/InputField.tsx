@@ -59,6 +59,7 @@ export const InputField = (props: InputFieldProps) => {
               placeholder={placeholder}
               colorPalette={"brand"}
               _placeholder={{ color: "gray.400" }}
+              value={field.value}
               {...inputStyles}
             />
             {isShowPasswordStrength && <PasswordStrength value={field.value} />}
