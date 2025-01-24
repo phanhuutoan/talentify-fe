@@ -8,6 +8,7 @@ import { passwordRequiredRegex } from "@/_constants/regex";
 import { LogoIcon } from "@/_images/svgs/Logo";
 import { ApiErrorResponse } from "@/_models/common";
 import { authService, ResetPayload } from "@/_services/auth";
+import { Suspense } from "react";
 import {
   getMessageFromError,
   getStorageData,
@@ -21,6 +22,7 @@ import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 import * as yup from "yup";
+import { FallBack } from "@/_components/ui/Fallback";
 
 const schema = yup.object().shape({
   code: yup.string().required(),
@@ -39,7 +41,8 @@ const schema = yup.object().shape({
 
 type FormValues = yup.InferType<typeof schema>;
 
-export default function ResetPasswordPage() {
+/** We have to do this because of this error: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */
+const ResetPasswordForm = () => {
   const queryParams = useSearchParams();
   const code = queryParams.get("code") || "";
   const { isMutating, trigger } = useSWRMutation(
@@ -67,6 +70,13 @@ export default function ResetPasswordPage() {
 
   const onSubmit = async (data: FormValues) => {
     try {
+      if (!email) {
+        toaster.error({
+          title: "Email not found!",
+          description: "Please try again! Start from forgot password!",
+        });
+        return router.push("/auth/forgot-password");
+      }
       await trigger({ code: data.code, email, password: data.password });
       toaster.success({
         title: "Password reset successfully!",
@@ -79,7 +89,7 @@ export default function ResetPasswordPage() {
     }
   };
   return (
-    <Box minH="100vh" w="100vw" bgColor="gray.200" pb="2rem">
+    <Box minH="100vh" w="100vw" bgColor="gray.200" py="2rem">
       <Center cursor="pointer" justifyItems="center" flexDir="column" h="100%">
         <Icon w="15rem" h="4rem" fill="brand.100" mb="2rem">
           <LogoIcon />
@@ -138,5 +148,13 @@ export default function ResetPasswordPage() {
         </FormProvider>
       </Center>
     </Box>
+  );
+};
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<FallBack />}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

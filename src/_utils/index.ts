@@ -25,10 +25,15 @@ export const getMessageFromError = (error: unknown) => {
 };
 
 export const setStorageData = (key: string, data: unknown) => {
-  localStorage.setItem(key, JSON.stringify(data));
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, JSON.stringify(data));
+  }
 };
 
 export const getStorageData = <T>(key: string) => {
+  if (typeof window === "undefined") {
+    return null;
+  }
   const data = localStorage.getItem(key);
   return data ? (JSON.parse(data) as T) : null;
 };
