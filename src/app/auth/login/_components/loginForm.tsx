@@ -128,7 +128,7 @@ const LoginForm = () => {
                   type="password"
                   placeholder="*******"
                 />
-                <Link href="#">
+                <Link href="/auth/forgot-password">
                   <Text
                     textStyle="sm"
                     color="brand.100"

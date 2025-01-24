@@ -19,6 +19,31 @@ const login = async (email: string, password: string) => {
   }
 };
 
+const forgotPassword = async (email: string) => {
+  const response = await mainApiInstance.post<ApiErrorResponse>(
+    `/auth/forgot-password?email=${email}`,
+  );
+  return response;
+};
+
+export interface ResetPayload {
+  email: string;
+  password: string;
+  code: string;
+}
+const resetPassword = async (payload: ResetPayload) => {
+  const { email, password, code } = payload;
+  const response = await mainApiInstance.post<ApiErrorResponse>(
+    `/auth/reset-password`,
+    {
+      email,
+      password,
+      code,
+    },
+  );
+  return response;
+};
+
 const logout = async () => {
   await removeCookie();
   window.location.reload();
@@ -55,4 +80,6 @@ export const authService = {
   signup,
   verifyOTP,
   resendOTP,
+  forgotPassword,
+  resetPassword,
 };

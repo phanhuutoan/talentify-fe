@@ -9,8 +9,7 @@ export function middleware(req: NextRequest) {
   const authData = req.cookies.get("auth"); // For cookies
   const isPublicPage = publicPages.some((page) => currentPath.startsWith(page));
   const isExactMatch = specialPages.some((page) => currentPath === page);
-  let isAuth = false;
-  isAuth = !!authData;
+  let isAuth = !!authData;
 
   if (authData) {
     const authInfo = JSON.parse(authData.value) as {
