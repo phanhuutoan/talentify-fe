@@ -2,8 +2,10 @@
 import { Alert } from "@/_components/lib/ui/alert";
 import { Button } from "@/_components/lib/ui/button";
 import { toaster } from "@/_components/lib/ui/toaster";
+import { FallBack } from "@/_components/ui/Fallback";
 import { InputField } from "@/_components/ui/form/InputField";
 import { RESETTING_EMAIL } from "@/_constants/keys";
+import { useGetEmailParams } from "@/_hooks/useGetEmailParams";
 import { LogoIcon } from "@/_images/svgs/Logo";
 import { ApiErrorResponse } from "@/_models/common";
 import { authService } from "@/_services/auth";
@@ -12,7 +14,7 @@ import { Box, Center, Icon, Text } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 import * as yup from "yup";
@@ -23,10 +25,11 @@ const schema = yup.object().shape({
 
 type FormValues = yup.InferType<typeof schema>;
 
-export default function ForgotPasswordPage() {
+const ForgotPassword = () => {
+  const emailQuery = useGetEmailParams();
   const form = useForm({
     defaultValues: {
-      email: "",
+      email: emailQuery || "",
     },
     resolver: yupResolver(schema),
   });
@@ -99,5 +102,13 @@ export default function ForgotPasswordPage() {
         </FormProvider>
       </Center>
     </Box>
+  );
+};
+
+export default function Page() {
+  return (
+    <Suspense fallback={<FallBack />}>
+      <ForgotPassword />
+    </Suspense>
   );
 }
