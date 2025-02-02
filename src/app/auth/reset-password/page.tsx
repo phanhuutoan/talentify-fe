@@ -23,6 +23,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 import * as yup from "yup";
 import { FallBack } from "@/_components/ui/Fallback";
+import { useGetEmailParams } from "@/_hooks/useGetEmailParams";
 
 const schema = yup.object().shape({
   code: yup.string().required(),
@@ -44,6 +45,7 @@ type FormValues = yup.InferType<typeof schema>;
 /** We have to do this because of this error: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout */
 const ResetPasswordForm = () => {
   const queryParams = useSearchParams();
+  const queryEmail = useGetEmailParams();
   const code = queryParams.get("code") || "";
   const { isMutating, trigger } = useSWRMutation(
     "auth/forgot-password",
@@ -51,11 +53,10 @@ const ResetPasswordForm = () => {
   );
 
   const email = useMemo(() => {
-    const queryEmail = queryParams.get("email");
     const storageEmail = getStorageData(RESETTING_EMAIL) as string;
 
     return queryEmail || storageEmail || "";
-  }, [queryParams]);
+  }, [queryEmail]);
 
   const form = useForm<FormValues>({
     defaultValues: {

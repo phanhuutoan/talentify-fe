@@ -21,7 +21,10 @@ const login = async (email: string, password: string) => {
 
 const forgotPassword = async (email: string) => {
   const response = await mainApiInstance.post<ApiErrorResponse>(
-    `/auth/forgot-password?email=${email}`,
+    `/auth/forgot-password`,
+    {
+      email,
+    },
   );
   return response;
 };
