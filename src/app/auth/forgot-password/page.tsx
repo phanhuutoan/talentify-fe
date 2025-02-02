@@ -4,6 +4,7 @@ import { Button } from "@/_components/lib/ui/button";
 import { toaster } from "@/_components/lib/ui/toaster";
 import { InputField } from "@/_components/ui/form/InputField";
 import { RESETTING_EMAIL } from "@/_constants/keys";
+import { useGetEmailParams } from "@/_hooks/useGetEmailParams";
 import { LogoIcon } from "@/_images/svgs/Logo";
 import { ApiErrorResponse } from "@/_models/common";
 import { authService } from "@/_services/auth";
@@ -24,9 +25,10 @@ const schema = yup.object().shape({
 type FormValues = yup.InferType<typeof schema>;
 
 export default function ForgotPasswordPage() {
+  const emailQuery = useGetEmailParams();
   const form = useForm({
     defaultValues: {
-      email: "",
+      email: emailQuery || "",
     },
     resolver: yupResolver(schema),
   });
