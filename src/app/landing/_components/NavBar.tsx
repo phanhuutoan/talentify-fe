@@ -38,7 +38,7 @@ export const NavBar = () => {
     },
     {
       title: "blog",
-      url: "/blogs",
+      url: "/blog",
     },
     {
       title: "learning",

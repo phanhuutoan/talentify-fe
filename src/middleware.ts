@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const publicPages = ["/auth/", "/_next/", "/favicon.ico"];
-const specialPages = ["/landing", "/"];
+const specialPages = [/^\/landing$/, /^\/$/, /\/blog\/?.*/];
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const currentPath = url.pathname;
   const authData = req.cookies.get("auth"); // For cookies
   const isPublicPage = publicPages.some((page) => currentPath.startsWith(page));
-  const isExactMatch = specialPages.some((page) => currentPath === page);
+  const isSpecialPageMatch = specialPages.some((page) =>
+    page.test(currentPath),
+  );
   let isAuth = !!authData;
 
   if (authData) {
@@ -21,7 +23,12 @@ export function middleware(req: NextRequest) {
     isAuth = now < expiredAt && !!authInfo.token;
   }
 
-  if ((isPublicPage || isExactMatch) && !isAuth) {
+  // User able to go here no matter they're auth or not
+  if (isSpecialPageMatch) {
+    return NextResponse.next();
+  }
+
+  if (isPublicPage && !isAuth) {
     return NextResponse.next();
   }
 

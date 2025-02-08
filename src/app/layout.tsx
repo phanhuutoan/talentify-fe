@@ -1,5 +1,6 @@
 import { Provider } from "@/_components/lib/ui/provider";
 import { Toaster } from "@/_components/lib/ui/toaster";
+import { ApolloWrapper } from "@/_services/graphql/client";
 import { Metadata } from "next";
 import { Alata, Open_Sans } from "next/font/google";
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={[alata.className, openSans.className].join(" ")}>
-        <Provider>
-          {children}
-          <Toaster />
-        </Provider>
+        <ApolloWrapper>
+          <Provider>
+            {children}
+            <Toaster />
+          </Provider>
+        </ApolloWrapper>
       </body>
     </html>
   );

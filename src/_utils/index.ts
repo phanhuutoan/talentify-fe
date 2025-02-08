@@ -41,3 +41,7 @@ export const getStorageData = <T>(key: string) => {
 export const removeStorageData = (key: string) => {
   localStorage.removeItem(key);
 };
+
+export const blogLinkBuilder = (id: string, slug: string) => {
+  return `/blog/${id}.${slug}`;
+};

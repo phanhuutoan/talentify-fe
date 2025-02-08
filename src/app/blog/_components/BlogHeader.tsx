@@ -17,20 +17,20 @@ import { CiSearch } from "react-icons/ci";
 export const BlogHeader = () => {
   const pathName = usePathname();
   const listItems = [
-    { name: "career", href: "/blogs/career" },
-    { name: "skills station", href: "/blogs/skill-station" },
-    { name: "podcasts", href: "/blogs/podcasts" },
+    { name: "career", href: "/blog/career" },
+    { name: "skills station", href: "/blog/skill-station" },
+    { name: "podcasts", href: "/blog/podcasts" },
   ];
 
   const renderLogo = () => {
     return (
-      <Link href="/blogs" style={{ borderBottom: "none" }}>
+      <Link href="/blog" style={{ borderBottom: "none" }}>
         <Flex cursor={"pointer"}>
           <Text textStyle="3xl" fontFamily="heading" fontWeight={600}>
             Opportunities
           </Text>
           <Icon boxSize={5}>
-            <StarLogoIcon />
+            <StarLogoIcon fill="brand.100" />
           </Icon>
         </Flex>
       </Link>
