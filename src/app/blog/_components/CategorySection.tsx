@@ -2,9 +2,11 @@
 import { Button } from "@/_components/lib/ui/button";
 import { Get100LatestPosts } from "@/_services/graphql/gql-doc/posts";
 import { GetPosts } from "@/_services/graphql/models/Posts";
+import { blogLinkBuilder } from "@/_utils";
 import { useQuery } from "@apollo/client";
 import { Flex, GridItem, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
+import Link from "next/link";
 import { useState } from "react";
 
 export const CategorySection = () => {
@@ -48,17 +50,29 @@ export const CategorySection = () => {
             ? renderSkeleton()
             : postByCategory.map((post, index) => (
                 <GridItem key={index}>
-                  <Flex
-                    bgImage={`url(${post.mainImage.asset.url})`}
-                    h="14rem"
-                    bgSize="cover"
-                    borderRadius="4xl"
-                  />
-                  <Text textStyle="lg" mt={3} mb={2} fontWeight={600}>
-                    {post.title}
-                  </Text>
-                  {/* November 12, 2024 */}
-                  <Text>{format(post._createdAt!, "LLLL dd, yyyy")}</Text>
+                  <Link
+                    href={blogLinkBuilder(post._id, post.slug.current)}
+                    target="_blank"
+                  >
+                    <Flex
+                      bgImage={`url(${post.mainImage.asset.url})`}
+                      h="14rem"
+                      bgSize="cover"
+                      borderRadius="4xl"
+                      transition="transform .5s"
+                      _hover={{
+                        transform: "scale(1.05)",
+                      }}
+                      boxShadow="md"
+                    />
+                    <Text textStyle="md" mt={3} mb={2} fontWeight={600}>
+                      {post.title}
+                    </Text>
+                    {/* November 12, 2024 */}
+                    <Text textStyle="sm">
+                      {format(post._createdAt!, "LLLL dd, yyyy")}
+                    </Text>
+                  </Link>
                 </GridItem>
               ))}
         </SimpleGrid>

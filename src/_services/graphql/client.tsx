@@ -22,7 +22,6 @@ import {
 
 // have a function to create a client for you
 function makeClient() {
-  console.log("first", process.env.SANITY_GRAPHQL_API);
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
     uri: process.env.NEXT_PUBLIC_SANITY_GRAPHQL_API,

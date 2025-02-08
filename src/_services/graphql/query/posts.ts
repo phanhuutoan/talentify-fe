@@ -7,7 +7,7 @@ export class PostsService {
   constructor() {
     const httpLink = new HttpLink({
       uri: process.env.NEXT_PUBLIC_SANITY_GRAPHQL_API,
-      fetchOptions: { cache: "no-store" },
+      fetchOptions: { next: { revalidate: 120 } },
     });
     this.client = new ApolloClient({
       cache: new InMemoryCache(),
