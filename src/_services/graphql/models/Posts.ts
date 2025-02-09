@@ -23,7 +23,14 @@ export type Post = {
   _createdAt?: string;
   author: {
     name: string;
+    avatar: {
+      asset: {
+        url: string;
+      };
+    };
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contentRaw: any[];
 };
 
 export type GetPosts = Post[];

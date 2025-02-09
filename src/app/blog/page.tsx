@@ -1,5 +1,13 @@
 import { PostsService } from "@/_services/graphql/query/posts";
-import { Flex, GridItem, Icon, Link, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Container,
+  Flex,
+  GridItem,
+  Icon,
+  Link,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
 import { CategoryButton } from "./_components/CategoryButton";
 import { BsArrowRight } from "react-icons/bs";
 import { LatestPosts } from "./_components/LatestPost";
@@ -18,7 +26,7 @@ const Page = async () => {
   const firstPost = posts.data.allPost[randomPost];
 
   return (
-    <>
+    <Container maxW="full">
       <Flex
         bgImage={`url(${firstPost.mainImage.asset.url})`}
         w="100%"
@@ -50,7 +58,6 @@ const Page = async () => {
             <Flex align="flex-end" justifyContent="flex-end" h="full">
               <Link
                 href={blogLinkBuilder(firstPost._id, firstPost.slug.current)}
-                target="_blank"
                 style={{ borderBottom: "none" }}
               >
                 <Icon
@@ -69,7 +76,7 @@ const Page = async () => {
       </Flex>
       <LatestPosts allPost={posts.data.allPost} isLoading={posts.loading} />
       <CategorySection />
-    </>
+    </Container>
   );
 };
 

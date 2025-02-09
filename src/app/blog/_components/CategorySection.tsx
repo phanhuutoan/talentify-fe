@@ -50,10 +50,7 @@ export const CategorySection = () => {
             ? renderSkeleton()
             : postByCategory.map((post, index) => (
                 <GridItem key={index}>
-                  <Link
-                    href={blogLinkBuilder(post._id, post.slug.current)}
-                    target="_blank"
-                  >
+                  <Link href={blogLinkBuilder(post._id, post.slug.current)}>
                     <Flex
                       bgImage={`url(${post.mainImage.asset.url})`}
                       h="14rem"
