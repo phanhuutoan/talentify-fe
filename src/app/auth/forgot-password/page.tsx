@@ -2,7 +2,7 @@
 import { Alert } from "@/_components/lib/ui/alert";
 import { Button } from "@/_components/lib/ui/button";
 import { toaster } from "@/_components/lib/ui/toaster";
-import { FallBack } from "@/_components/ui/Fallback";
+import { FallBackLoading } from "@/_components/ui/Fallback";
 import { InputField } from "@/_components/ui/form/InputField";
 import { RESETTING_EMAIL } from "@/_constants/keys";
 import { useGetEmailParams } from "@/_hooks/useGetEmailParams";
@@ -107,7 +107,7 @@ const ForgotPassword = () => {
 
 export default function Page() {
   return (
-    <Suspense fallback={<FallBack />}>
+    <Suspense fallback={<FallBackLoading />}>
       <ForgotPassword />
     </Suspense>
   );

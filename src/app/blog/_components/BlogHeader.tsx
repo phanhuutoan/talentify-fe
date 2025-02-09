@@ -1,18 +1,16 @@
 "use client";
-import { InputGroup } from "@/_components/lib/ui/input-group";
 import { StarLogoIcon } from "@/_images/svgs/Logo";
 import {
   Container,
   Flex,
   HStack,
   Icon,
-  Input,
   Separator,
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CiSearch } from "react-icons/ci";
+import { SearchBox } from "./SearchBox";
 
 export const BlogHeader = () => {
   const pathName = usePathname();
@@ -61,22 +59,7 @@ export const BlogHeader = () => {
               </Link>
             ))}
           </HStack>
-          <InputGroup
-            endElement={
-              <Icon boxSize={6} fill={"brand.100"}>
-                <CiSearch />
-              </Icon>
-            }
-            w="20rem"
-          >
-            <Input
-              border="2px solid"
-              borderColor="brand.100"
-              borderRadius="50px"
-              placeholder="Search Post, Authors, ..."
-              _focusVisible={{ outlineColor: "brand.200" }}
-            />
-          </InputGroup>
+          <SearchBox />
         </Flex>
       </Container>
     </Flex>

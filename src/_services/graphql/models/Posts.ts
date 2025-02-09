@@ -21,6 +21,9 @@ export type Post = {
   categories: Category[];
   mainImage: Image;
   _createdAt?: string;
+  author: {
+    name: string;
+  };
 };
 
 export type GetPosts = Post[];
