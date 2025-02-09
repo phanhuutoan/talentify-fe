@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 
 export const Get100LatestPosts = gql`
-  # Write your query or mutation here
   query GerAllPost {
     allPost(sort: { _createdAt: DESC }, offset: 6, limit: 30) {
       _id
@@ -23,6 +22,24 @@ export const Get100LatestPosts = gql`
   }
 `;
 
+const PostFragment = gql`
+  fragment PostFragment on Post {
+    _id
+    isPublished
+    title
+    slug {
+      current
+    }
+    categories {
+      name
+    }
+    author {
+      name
+    }
+    _createdAt
+  }
+`;
+
 export const GetPostByAuthor = gql`
   query GetPostByAuthor($authorName: String!) {
     allPost(
@@ -30,21 +47,10 @@ export const GetPostByAuthor = gql`
       limit: 5
       where: { author: { name: { matches: $authorName } } }
     ) {
-      _id
-      isPublished
-      title
-      slug {
-        current
-      }
-      categories {
-        name
-      }
-      author {
-        name
-      }
-      _createdAt
+      ...PostFragment
     }
   }
+  ${PostFragment}
 `;
 
 export const GetPostBySlug = gql`
@@ -54,21 +60,10 @@ export const GetPostBySlug = gql`
       limit: 5
       where: { slug: { current: { matches: $keyword } } }
     ) {
-      _id
-      isPublished
-      title
-      slug {
-        current
-      }
-      categories {
-        name
-      }
-      author {
-        name
-      }
-      _createdAt
+      ...PostFragment
     }
   }
+  ${PostFragment}
 `;
 
 export const GetPostByTitle = gql`
@@ -78,19 +73,8 @@ export const GetPostByTitle = gql`
       limit: 5
       where: { title: { matches: $title } }
     ) {
-      _id
-      isPublished
-      title
-      slug {
-        current
-      }
-      categories {
-        name
-      }
-      author {
-        name
-      }
-      _createdAt
+      ...PostFragment
     }
   }
+  ${PostFragment}
 `;
