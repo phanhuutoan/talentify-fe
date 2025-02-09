@@ -1,5 +1,5 @@
 "use client";
-import { FallBack } from "@/_components/ui/Fallback";
+import { FallBackLoading } from "@/_components/ui/Fallback";
 import { GetPosts, Post } from "@/_services/graphql/models/Posts";
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
@@ -76,7 +76,7 @@ export const LatestPosts = ({ allPost, isLoading = true }: Props) => {
           </Flex>
         </Flex>
       ) : (
-        <FallBack />
+        <FallBackLoading />
       )}
     </Box>
   );
