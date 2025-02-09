@@ -22,7 +22,7 @@ import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import useSWRMutation from "swr/mutation";
 import * as yup from "yup";
-import { FallBack } from "@/_components/ui/Fallback";
+import { FallBackLoading } from "@/_components/ui/Fallback";
 import { useGetEmailParams } from "@/_hooks/useGetEmailParams";
 
 const schema = yup.object().shape({
@@ -154,7 +154,7 @@ const ResetPasswordForm = () => {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<FallBack />}>
+    <Suspense fallback={<FallBackLoading />}>
       <ResetPasswordForm />
     </Suspense>
   );
