@@ -1,4 +1,4 @@
-import { Box, Container } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { BlogHeader } from "./_components/BlogHeader";
 import { Footer } from "@/_components/ui/Footer";
 import { Metadata } from "next";
@@ -17,12 +17,10 @@ export default function BlogLayout({
   return (
     <>
       <BlogHeader />
-      <Container maxW="full">
-        <Box as="main" minH="65vh" pt={2} pb={12}>
-          {children}
-        </Box>
-        <Footer />
-      </Container>
+      <Box as="main" minH="65vh" pt={2} pb={12}>
+        {children}
+      </Box>
+      <Footer />
     </>
   );
 }

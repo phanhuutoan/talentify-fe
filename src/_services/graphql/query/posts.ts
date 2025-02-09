@@ -1,5 +1,5 @@
 import { ApolloClient, gql, HttpLink, InMemoryCache } from "@apollo/client";
-import { GetPosts } from "../models/Posts";
+import { GetPosts, Post } from "../models/Posts";
 
 export class PostsService {
   client: ApolloClient<unknown>;
@@ -40,6 +40,46 @@ export class PostsService {
           }
         }
       `,
+    });
+
+    return res;
+  };
+
+  getPostById = async (id: string) => {
+    const res = await this.client.query<{ Post: Post }>({
+      query: gql`
+        query PostById($id: ID!) {
+          Post(id: $id) {
+            title
+            slug {
+              current
+            }
+            shortDescription
+            categories {
+              name
+            }
+            author {
+              name
+            }
+            mainImage {
+              asset {
+                url
+              }
+            }
+            author {
+              name
+              avatar {
+                asset {
+                  url
+                }
+              }
+            }
+            contentRaw
+            _createdAt
+          }
+        }
+      `,
+      variables: { id },
     });
 
     return res;

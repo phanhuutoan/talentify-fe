@@ -1,5 +1,6 @@
 import { ApiErrorResponse } from "@/_models/common";
 import { AxiosError } from "axios";
+import { blocksToText } from "./santity";
 
 const errorList = {
   ERROR001: "Invalid email or password",
@@ -44,4 +45,8 @@ export const removeStorageData = (key: string) => {
 
 export const blogLinkBuilder = (id: string, slug: string) => {
   return `/blog/${id}.${slug}`;
+};
+
+export const sanity = {
+  blocksToText,
 };
